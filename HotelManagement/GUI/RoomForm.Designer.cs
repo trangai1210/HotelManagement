@@ -34,14 +34,14 @@
             this.label1 = new System.Windows.Forms.Label();
             this.groupBoxThongTinPhong = new System.Windows.Forms.GroupBox();
             this.comboBox2 = new System.Windows.Forms.ComboBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.comboBoxLoaiPhong = new System.Windows.Forms.ComboBox();
             this.checkBox2 = new System.Windows.Forms.CheckBox();
-            this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDownTang = new System.Windows.Forms.NumericUpDown();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.txtMaPhong = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.button4 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
@@ -51,7 +51,7 @@
             this.entityCommand1 = new System.Data.Entity.Core.EntityClient.EntityCommand();
             this.groupboxTimKiem.SuspendLayout();
             this.groupBoxThongTinPhong.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTang)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -97,14 +97,14 @@
             // groupBoxThongTinPhong
             // 
             this.groupBoxThongTinPhong.Controls.Add(this.comboBox2);
-            this.groupBoxThongTinPhong.Controls.Add(this.comboBox1);
+            this.groupBoxThongTinPhong.Controls.Add(this.comboBoxLoaiPhong);
             this.groupBoxThongTinPhong.Controls.Add(this.checkBox2);
-            this.groupBoxThongTinPhong.Controls.Add(this.numericUpDown2);
+            this.groupBoxThongTinPhong.Controls.Add(this.numericUpDownTang);
             this.groupBoxThongTinPhong.Controls.Add(this.label6);
             this.groupBoxThongTinPhong.Controls.Add(this.label5);
             this.groupBoxThongTinPhong.Controls.Add(this.label4);
             this.groupBoxThongTinPhong.Controls.Add(this.label3);
-            this.groupBoxThongTinPhong.Controls.Add(this.textBox2);
+            this.groupBoxThongTinPhong.Controls.Add(this.txtMaPhong);
             this.groupBoxThongTinPhong.Controls.Add(this.label2);
             this.groupBoxThongTinPhong.Controls.Add(this.button4);
             this.groupBoxThongTinPhong.Controls.Add(this.button3);
@@ -126,13 +126,13 @@
             this.comboBox2.Size = new System.Drawing.Size(297, 33);
             this.comboBox2.TabIndex = 13;
             // 
-            // comboBox1
+            // comboBoxLoaiPhong
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(126, 118);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(297, 33);
-            this.comboBox1.TabIndex = 12;
+            this.comboBoxLoaiPhong.FormattingEnabled = true;
+            this.comboBoxLoaiPhong.Location = new System.Drawing.Point(126, 118);
+            this.comboBoxLoaiPhong.Name = "comboBoxLoaiPhong";
+            this.comboBoxLoaiPhong.Size = new System.Drawing.Size(297, 33);
+            this.comboBoxLoaiPhong.TabIndex = 12;
             // 
             // checkBox2
             // 
@@ -144,12 +144,12 @@
             this.checkBox2.Text = "Đang hoạt động";
             this.checkBox2.UseVisualStyleBackColor = true;
             // 
-            // numericUpDown2
+            // numericUpDownTang
             // 
-            this.numericUpDown2.Location = new System.Drawing.Point(126, 180);
-            this.numericUpDown2.Name = "numericUpDown2";
-            this.numericUpDown2.Size = new System.Drawing.Size(297, 30);
-            this.numericUpDown2.TabIndex = 10;
+            this.numericUpDownTang.Location = new System.Drawing.Point(126, 180);
+            this.numericUpDownTang.Name = "numericUpDownTang";
+            this.numericUpDownTang.Size = new System.Drawing.Size(297, 30);
+            this.numericUpDownTang.TabIndex = 10;
             // 
             // label6
             // 
@@ -187,12 +187,12 @@
             this.label3.TabIndex = 5;
             this.label3.Text = "Loại phòng:";
             // 
-            // textBox2
+            // txtMaPhong
             // 
-            this.textBox2.Location = new System.Drawing.Point(126, 60);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(297, 30);
-            this.textBox2.TabIndex = 4;
+            this.txtMaPhong.Location = new System.Drawing.Point(126, 60);
+            this.txtMaPhong.Name = "txtMaPhong";
+            this.txtMaPhong.Size = new System.Drawing.Size(297, 30);
+            this.txtMaPhong.TabIndex = 4;
             // 
             // label2
             // 
@@ -276,7 +276,7 @@
             this.groupboxTimKiem.PerformLayout();
             this.groupBoxThongTinPhong.ResumeLayout(false);
             this.groupBoxThongTinPhong.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTang)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
 
@@ -295,15 +295,15 @@
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox txtMaPhong;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ComboBox comboBox2;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox comboBoxLoaiPhong;
         private System.Windows.Forms.CheckBox checkBox2;
-        private System.Windows.Forms.NumericUpDown numericUpDown2;
+        private System.Windows.Forms.NumericUpDown numericUpDownTang;
     }
 }
