@@ -29,11 +29,11 @@
         private void InitializeComponent()
         {
             this.groupboxTimKiem = new System.Windows.Forms.GroupBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.checkBoxActive = new System.Windows.Forms.CheckBox();
+            this.txtTimKiem = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBoxThongTinPhong = new System.Windows.Forms.GroupBox();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.comboBoxTrangThai = new System.Windows.Forms.ComboBox();
             this.comboBoxLoaiPhong = new System.Windows.Forms.ComboBox();
             this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.numericUpDownTang = new System.Windows.Forms.NumericUpDown();
@@ -43,10 +43,10 @@
             this.label3 = new System.Windows.Forms.Label();
             this.txtMaPhong = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
+            this.btSua = new System.Windows.Forms.Button();
+            this.btXoa = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btThem = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.entityCommand1 = new System.Data.Entity.Core.EntityClient.EntityCommand();
             this.groupboxTimKiem.SuspendLayout();
@@ -57,33 +57,36 @@
             // 
             // groupboxTimKiem
             // 
-            this.groupboxTimKiem.Controls.Add(this.checkBox1);
-            this.groupboxTimKiem.Controls.Add(this.textBox1);
+            this.groupboxTimKiem.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupboxTimKiem.Controls.Add(this.checkBoxActive);
+            this.groupboxTimKiem.Controls.Add(this.txtTimKiem);
             this.groupboxTimKiem.Controls.Add(this.label1);
             this.groupboxTimKiem.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupboxTimKiem.Location = new System.Drawing.Point(31, 43);
             this.groupboxTimKiem.Name = "groupboxTimKiem";
-            this.groupboxTimKiem.Size = new System.Drawing.Size(870, 93);
+            this.groupboxTimKiem.Size = new System.Drawing.Size(934, 93);
             this.groupboxTimKiem.TabIndex = 0;
             this.groupboxTimKiem.TabStop = false;
             this.groupboxTimKiem.Text = "Tìm kiếm";
             // 
-            // checkBox1
+            // checkBoxActive
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(441, 46);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(265, 29);
-            this.checkBox1.TabIndex = 2;
-            this.checkBox1.Text = "Chỉ phòng đang hoạt động";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBoxActive.AutoSize = true;
+            this.checkBoxActive.Location = new System.Drawing.Point(441, 46);
+            this.checkBoxActive.Name = "checkBoxActive";
+            this.checkBoxActive.Size = new System.Drawing.Size(265, 29);
+            this.checkBoxActive.TabIndex = 2;
+            this.checkBoxActive.Text = "Chỉ phòng đang hoạt động";
+            this.checkBoxActive.UseVisualStyleBackColor = true;
             // 
-            // textBox1
+            // txtTimKiem
             // 
-            this.textBox1.Location = new System.Drawing.Point(94, 46);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(309, 30);
-            this.textBox1.TabIndex = 1;
+            this.txtTimKiem.Location = new System.Drawing.Point(94, 46);
+            this.txtTimKiem.Name = "txtTimKiem";
+            this.txtTimKiem.Size = new System.Drawing.Size(309, 30);
+            this.txtTimKiem.TabIndex = 1;
+            this.txtTimKiem.TextChanged += new System.EventHandler(this.txtTimKiem_TextChanged);
             // 
             // label1
             // 
@@ -96,7 +99,9 @@
             // 
             // groupBoxThongTinPhong
             // 
-            this.groupBoxThongTinPhong.Controls.Add(this.comboBox2);
+            this.groupBoxThongTinPhong.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.groupBoxThongTinPhong.Controls.Add(this.comboBoxTrangThai);
             this.groupBoxThongTinPhong.Controls.Add(this.comboBoxLoaiPhong);
             this.groupBoxThongTinPhong.Controls.Add(this.checkBox2);
             this.groupBoxThongTinPhong.Controls.Add(this.numericUpDownTang);
@@ -106,10 +111,10 @@
             this.groupBoxThongTinPhong.Controls.Add(this.label3);
             this.groupBoxThongTinPhong.Controls.Add(this.txtMaPhong);
             this.groupBoxThongTinPhong.Controls.Add(this.label2);
-            this.groupBoxThongTinPhong.Controls.Add(this.button4);
-            this.groupBoxThongTinPhong.Controls.Add(this.button3);
+            this.groupBoxThongTinPhong.Controls.Add(this.btSua);
+            this.groupBoxThongTinPhong.Controls.Add(this.btXoa);
             this.groupBoxThongTinPhong.Controls.Add(this.button2);
-            this.groupBoxThongTinPhong.Controls.Add(this.button1);
+            this.groupBoxThongTinPhong.Controls.Add(this.btThem);
             this.groupBoxThongTinPhong.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBoxThongTinPhong.Location = new System.Drawing.Point(31, 142);
             this.groupBoxThongTinPhong.Name = "groupBoxThongTinPhong";
@@ -118,13 +123,13 @@
             this.groupBoxThongTinPhong.TabStop = false;
             this.groupBoxThongTinPhong.Text = "Thông tin phòng";
             // 
-            // comboBox2
+            // comboBoxTrangThai
             // 
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(126, 232);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(297, 33);
-            this.comboBox2.TabIndex = 13;
+            this.comboBoxTrangThai.FormattingEnabled = true;
+            this.comboBoxTrangThai.Location = new System.Drawing.Point(126, 232);
+            this.comboBoxTrangThai.Name = "comboBoxTrangThai";
+            this.comboBoxTrangThai.Size = new System.Drawing.Size(297, 33);
+            this.comboBoxTrangThai.TabIndex = 13;
             // 
             // comboBoxLoaiPhong
             // 
@@ -203,25 +208,25 @@
             this.label2.TabIndex = 3;
             this.label2.Text = "Mã phòng:";
             // 
-            // button4
+            // btSua
             // 
-            this.button4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button4.Location = new System.Drawing.Point(129, 426);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(108, 39);
-            this.button4.TabIndex = 4;
-            this.button4.Text = "Sửa";
-            this.button4.UseVisualStyleBackColor = true;
+            this.btSua.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btSua.Location = new System.Drawing.Point(129, 426);
+            this.btSua.Name = "btSua";
+            this.btSua.Size = new System.Drawing.Size(108, 39);
+            this.btSua.TabIndex = 4;
+            this.btSua.Text = "Sửa";
+            this.btSua.UseVisualStyleBackColor = true;
             // 
-            // button3
+            // btXoa
             // 
-            this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button3.Location = new System.Drawing.Point(222, 426);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(108, 39);
-            this.button3.TabIndex = 3;
-            this.button3.Text = "Xóa";
-            this.button3.UseVisualStyleBackColor = true;
+            this.btXoa.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btXoa.Location = new System.Drawing.Point(222, 426);
+            this.btXoa.Name = "btXoa";
+            this.btXoa.Size = new System.Drawing.Size(108, 39);
+            this.btXoa.TabIndex = 3;
+            this.btXoa.Text = "Xóa";
+            this.btXoa.UseVisualStyleBackColor = true;
             // 
             // button2
             // 
@@ -233,24 +238,28 @@
             this.button2.Text = "Thêm";
             this.button2.UseVisualStyleBackColor = true;
             // 
-            // button1
+            // btThem
             // 
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(36, 426);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(108, 39);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "Thêm";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btThem.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btThem.Location = new System.Drawing.Point(36, 426);
+            this.btThem.Name = "btThem";
+            this.btThem.Size = new System.Drawing.Size(108, 39);
+            this.btThem.TabIndex = 1;
+            this.btThem.Text = "Thêm";
+            this.btThem.UseVisualStyleBackColor = true;
             // 
             // dataGridView1
             // 
+            this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(519, 178);
+            this.dataGridView1.Location = new System.Drawing.Point(492, 151);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidth = 51;
             this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(382, 429);
+            this.dataGridView1.Size = new System.Drawing.Size(473, 475);
             this.dataGridView1.TabIndex = 0;
             // 
             // entityCommand1
@@ -265,7 +274,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(932, 638);
+            this.ClientSize = new System.Drawing.Size(994, 675);
             this.Controls.Add(this.groupBoxThongTinPhong);
             this.Controls.Add(this.groupboxTimKiem);
             this.Controls.Add(this.dataGridView1);
@@ -286,22 +295,22 @@
 
         private System.Windows.Forms.GroupBox groupboxTimKiem;
         private System.Windows.Forms.GroupBox groupBoxThongTinPhong;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txtTimKiem;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox checkBoxActive;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Data.Entity.Core.EntityClient.EntityCommand entityCommand1;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button btSua;
+        private System.Windows.Forms.Button btXoa;
         private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btThem;
         private System.Windows.Forms.TextBox txtMaPhong;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.ComboBox comboBoxTrangThai;
         private System.Windows.Forms.ComboBox comboBoxLoaiPhong;
         private System.Windows.Forms.CheckBox checkBox2;
         private System.Windows.Forms.NumericUpDown numericUpDownTang;
