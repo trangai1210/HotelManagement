@@ -33,5 +33,10 @@ namespace HotelManagement.GUI
         {
             OpenChildForm(new RoomForm());
         }
+
+        private void btCustomer_Click(object sender, EventArgs e)
+        {
+            OpenChildForm(new CustomerForm());
+        }
     }
 }

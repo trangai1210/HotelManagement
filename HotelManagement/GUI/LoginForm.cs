@@ -22,16 +22,16 @@ namespace HotelManagement.GUI
             InitializeComponent();
         }
 
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
-            Graphics g = e.Graphics;
-            // Định nghĩa vùng vẽ và hai màu bắt đầu/kết thúc
-            Rectangle rect = panel1.ClientRectangle;
-            using (LinearGradientBrush brush = new LinearGradientBrush(rect, Color.Blue, Color.Black, 45F))
-            {
-                g.FillRectangle(brush, rect);
-            }
-        }
+        //private void panel1_Paint(object sender, PaintEventArgs e)
+        //{
+        //    Graphics g = e.Graphics;
+        //    // Định nghĩa vùng vẽ và hai màu bắt đầu/kết thúc
+        //    Rectangle rect = panel1.ClientRectangle;
+        //    using (LinearGradientBrush brush = new LinearGradientBrush(rect, Color.Blue, Color.Black, 45F))
+        //    {
+        //        g.FillRectangle(brush, rect);
+        //    }
+        //}
         HotelManagementEntities db = new HotelManagementEntities();
         private void button2_Click(object sender, EventArgs e)
         {

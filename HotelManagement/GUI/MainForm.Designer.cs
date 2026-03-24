@@ -108,6 +108,7 @@
             this.btCustomer.TabIndex = 1;
             this.btCustomer.Text = "Khách Hàng";
             this.btCustomer.UseVisualStyleBackColor = false;
+            this.btCustomer.Click += new System.EventHandler(this.btCustomer_Click);
             // 
             // btRoom
             // 
@@ -134,7 +135,7 @@
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(240)))), ((int)(((byte)(241)))));
             this.ClientSize = new System.Drawing.Size(1207, 661);
