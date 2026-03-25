@@ -114,7 +114,7 @@ namespace HotelManagement.GUI
                 conn.Open();
 
                 // kiểm tra CCCD trùng
-                string check = "SELECT COUNT(*) FROM KhachHang WHERE CCCD=@cccd";
+                string check = "SELECT COUNT(*) FROM Customer WHERE CCCD=@cccd";
 
                 SqlCommand checkCmd = new SqlCommand(check, conn);
                 checkCmd.Parameters.AddWithValue("@cccd", txtCccd.Text);
@@ -128,7 +128,7 @@ namespace HotelManagement.GUI
                 }
 
                 // thêm khách hàng
-                string query = @"INSERT INTO KhachHang
+                string query = @"INSERT INTO Customer
                                 (TenKH,GioiTinh,CCCD,SDT,DiaChi,QuocTich)
                                 VALUES
                                 (@TenKH,@GioiTinh,@CCCD,@SDT,@DiaChi,@QuocTich)";
