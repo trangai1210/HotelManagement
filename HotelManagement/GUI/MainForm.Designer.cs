@@ -56,7 +56,7 @@
             this.panel1.Controls.Add(this.btCustomer);
             this.panel1.Controls.Add(this.btInvoice);
             this.panel1.Controls.Add(this.btBooking);
-            this.panel1.Controls.Add(this.pictureSlide);
+
             this.panel1.Location = new System.Drawing.Point(0, 66);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(286, 668);
@@ -146,8 +146,9 @@
             // pictureSlide
             // 
             this.pictureSlide.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pictureSlide.Dock = System.Windows.Forms.DockStyle.Right;
-            this.pictureSlide.Location = new System.Drawing.Point(-604, 0);
+         
+         
+            this.pictureSlide.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pictureSlide.Name = "pictureSlide";
             this.pictureSlide.Size = new System.Drawing.Size(890, 668);
             this.pictureSlide.TabIndex = 1;
@@ -196,9 +197,11 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(240)))), ((int)(((byte)(241)))));
             this.ClientSize = new System.Drawing.Size(1207, 619);
+            this.Controls.Add(this.pictureSlide);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panelContent);
             this.Controls.Add(this.panelTop);
+        
             this.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "MainForm";

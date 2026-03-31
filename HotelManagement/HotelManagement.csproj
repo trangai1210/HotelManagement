@@ -216,6 +216,7 @@
     <Content Include="Resources\hoboi.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\Image1.bmp" />
     <Content Include="Resources\ksssss.jpg" />
     <Content Include="Resources\phongngu.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
