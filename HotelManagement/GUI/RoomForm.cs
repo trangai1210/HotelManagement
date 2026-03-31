@@ -64,5 +64,10 @@ namespace HotelManagement.GUI
         {
             SearchRoom();
         }
+
+        private void RoomForm_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

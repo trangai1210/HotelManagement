@@ -214,6 +214,11 @@ namespace HotelManagement.GUI
                 panelContent.BringToFront();
             }
         }
+
+        private void btDichVu_Click(object sender, EventArgs e)
+        {
+            OpenChildForm(new ServiceForm());
+        }
     }
 }
 

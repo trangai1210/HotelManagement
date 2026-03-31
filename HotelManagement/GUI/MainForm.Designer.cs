@@ -30,20 +30,20 @@
         {
             this.components = new System.ComponentModel.Container();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.panelTop = new System.Windows.Forms.Panel();
-            this.btnMenu = new System.Windows.Forms.Button();
+            this.btDichVu = new System.Windows.Forms.Button();
             this.btReport = new System.Windows.Forms.Button();
             this.btRoom = new System.Windows.Forms.Button();
             this.btCustomer = new System.Windows.Forms.Button();
             this.btInvoice = new System.Windows.Forms.Button();
             this.btBooking = new System.Windows.Forms.Button();
-            this.panelContent = new System.Windows.Forms.Panel();
             this.pictureSlide = new System.Windows.Forms.PictureBox();
+            this.panelTop = new System.Windows.Forms.Panel();
+            this.btnMenu = new System.Windows.Forms.Button();
+            this.panelContent = new System.Windows.Forms.Panel();
             this.slideTimer = new System.Windows.Forms.Timer(this.components);
-            this.btDichVu = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
-            this.panelTop.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureSlide)).BeginInit();
+            this.panelTop.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -62,29 +62,19 @@
             this.panel1.Size = new System.Drawing.Size(286, 668);
             this.panel1.TabIndex = 0;
             // 
-            // panelTop
+            // btDichVu
             // 
-            this.panelTop.BackColor = System.Drawing.Color.White;
-            this.panelTop.Controls.Add(this.btnMenu);
-            this.panelTop.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelTop.Location = new System.Drawing.Point(0, 0);
-            this.panelTop.Name = "panelTop";
-            this.panelTop.Size = new System.Drawing.Size(1207, 66);
-            this.panelTop.TabIndex = 2;
-            // 
-            // btnMenu
-            // 
-            this.btnMenu.BackColor = System.Drawing.Color.White;
-            this.btnMenu.Dock = System.Windows.Forms.DockStyle.Left;
-            this.btnMenu.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.btnMenu.Font = new System.Drawing.Font("Franklin Gothic Medium", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnMenu.Location = new System.Drawing.Point(0, 0);
-            this.btnMenu.Name = "btnMenu";
-            this.btnMenu.Size = new System.Drawing.Size(82, 66);
-            this.btnMenu.TabIndex = 0;
-            this.btnMenu.Text = "≡";
-            this.btnMenu.UseVisualStyleBackColor = false;
-            this.btnMenu.Click += new System.EventHandler(this.btnMenu_Click);
+            this.btDichVu.BackColor = System.Drawing.Color.CadetBlue;
+            this.btDichVu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btDichVu.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btDichVu.ForeColor = System.Drawing.Color.White;
+            this.btDichVu.Location = new System.Drawing.Point(-6, 276);
+            this.btDichVu.Name = "btDichVu";
+            this.btDichVu.Size = new System.Drawing.Size(292, 95);
+            this.btDichVu.TabIndex = 5;
+            this.btDichVu.Text = "QL Dịch Vụ";
+            this.btDichVu.UseVisualStyleBackColor = false;
+            this.btDichVu.Click += new System.EventHandler(this.btDichVu_Click);
             // 
             // btReport
             // 
@@ -153,14 +143,6 @@
             this.btBooking.Text = "Đặt Phòng";
             this.btBooking.UseVisualStyleBackColor = false;
             // 
-            // panelContent
-            // 
-            this.panelContent.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panelContent.Location = new System.Drawing.Point(283, 66);
-            this.panelContent.Name = "panelContent";
-            this.panelContent.Size = new System.Drawing.Size(924, 553);
-            this.panelContent.TabIndex = 1;
-            // 
             // pictureSlide
             // 
             this.pictureSlide.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
@@ -171,27 +153,46 @@
             this.pictureSlide.TabIndex = 1;
             this.pictureSlide.TabStop = false;
             // 
+            // panelTop
+            // 
+            this.panelTop.BackColor = System.Drawing.Color.White;
+            this.panelTop.Controls.Add(this.btnMenu);
+            this.panelTop.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelTop.Location = new System.Drawing.Point(0, 0);
+            this.panelTop.Name = "panelTop";
+            this.panelTop.Size = new System.Drawing.Size(1207, 66);
+            this.panelTop.TabIndex = 2;
+            // 
+            // btnMenu
+            // 
+            this.btnMenu.BackColor = System.Drawing.Color.White;
+            this.btnMenu.Dock = System.Windows.Forms.DockStyle.Left;
+            this.btnMenu.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.btnMenu.Font = new System.Drawing.Font("Franklin Gothic Medium", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnMenu.Location = new System.Drawing.Point(0, 0);
+            this.btnMenu.Name = "btnMenu";
+            this.btnMenu.Size = new System.Drawing.Size(82, 66);
+            this.btnMenu.TabIndex = 0;
+            this.btnMenu.Text = "≡";
+            this.btnMenu.UseVisualStyleBackColor = false;
+            this.btnMenu.Click += new System.EventHandler(this.btnMenu_Click);
+            // 
+            // panelContent
+            // 
+            this.panelContent.Dock = System.Windows.Forms.DockStyle.Right;
+            this.panelContent.Location = new System.Drawing.Point(283, 66);
+            this.panelContent.Name = "panelContent";
+            this.panelContent.Size = new System.Drawing.Size(924, 553);
+            this.panelContent.TabIndex = 1;
+            // 
             // slideTimer
             // 
             this.slideTimer.Interval = 3000;
             this.slideTimer.Tick += new System.EventHandler(this.slideTimer_Tick);
             // 
-            // btDichVu
-            // 
-            this.btDichVu.BackColor = System.Drawing.Color.CadetBlue;
-            this.btDichVu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btDichVu.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btDichVu.ForeColor = System.Drawing.Color.White;
-            this.btDichVu.Location = new System.Drawing.Point(-6, 276);
-            this.btDichVu.Name = "btDichVu";
-            this.btDichVu.Size = new System.Drawing.Size(292, 95);
-            this.btDichVu.TabIndex = 5;
-            this.btDichVu.Text = "QL Dịch Vụ";
-            this.btDichVu.UseVisualStyleBackColor = false;
-            // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 21F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(240)))), ((int)(((byte)(241)))));
             this.ClientSize = new System.Drawing.Size(1207, 619);
@@ -206,8 +207,8 @@
             this.WindowState = System.Windows.Forms.FormWindowState.Minimized;
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.panel1.ResumeLayout(false);
-            this.panelTop.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureSlide)).EndInit();
+            this.panelTop.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }

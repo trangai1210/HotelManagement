@@ -281,6 +281,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "RoomForm";
             this.Text = "RoomForm";
+            this.Load += new System.EventHandler(this.RoomForm_Load);
             this.groupboxTimKiem.ResumeLayout(false);
             this.groupboxTimKiem.PerformLayout();
             this.groupBoxThongTinPhong.ResumeLayout(false);
