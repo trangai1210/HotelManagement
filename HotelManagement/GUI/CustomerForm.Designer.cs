@@ -31,6 +31,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.panelThongTin = new System.Windows.Forms.Panel();
             this.panelSuaKH = new System.Windows.Forms.Panel();
+            this.txtTenSua = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
@@ -42,7 +43,6 @@
             this.label13 = new System.Windows.Forms.Label();
             this.cbGioiTinhSua = new System.Windows.Forms.ComboBox();
             this.label14 = new System.Windows.Forms.Label();
-            this.txtTenSua = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
             this.btHuySua = new System.Windows.Forms.Button();
             this.btCapnhap = new System.Windows.Forms.Button();
@@ -131,9 +131,21 @@
             this.panelSuaKH.Controls.Add(this.btCapnhap);
             this.panelSuaKH.Location = new System.Drawing.Point(1, 0);
             this.panelSuaKH.Name = "panelSuaKH";
-            this.panelSuaKH.Size = new System.Drawing.Size(687, 747);
+            this.panelSuaKH.Size = new System.Drawing.Size(697, 747);
             this.panelSuaKH.TabIndex = 18;
             this.panelSuaKH.Visible = false;
+            // 
+            // txtTenSua
+            // 
+            this.txtTenSua.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtTenSua.BackColor = System.Drawing.Color.White;
+            this.txtTenSua.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtTenSua.Location = new System.Drawing.Point(117, 151);
+            this.txtTenSua.Name = "txtTenSua";
+            this.txtTenSua.Size = new System.Drawing.Size(545, 39);
+            this.txtTenSua.TabIndex = 23;
             // 
             // label8
             // 
@@ -242,18 +254,6 @@
             this.label14.Size = new System.Drawing.Size(47, 32);
             this.label14.TabIndex = 24;
             this.label14.Text = "👤";
-            // 
-            // txtTenSua
-            // 
-            this.txtTenSua.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtTenSua.BackColor = System.Drawing.Color.White;
-            this.txtTenSua.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTenSua.Location = new System.Drawing.Point(117, 151);
-            this.txtTenSua.Name = "txtTenSua";
-            this.txtTenSua.Size = new System.Drawing.Size(535, 39);
-            this.txtTenSua.TabIndex = 23;
             // 
             // label11
             // 
