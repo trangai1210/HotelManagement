@@ -10,86 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-//namespace HotelManagement.GUI
-//{
-//    public partial class MainForm : Form
-//    {
-//        public MainForm()
-//        {
-//            InitializeComponent();
-//        }
-//        bool menuOpen = false; //đóng mở menu
-//                               // nút ba gạch
 
-//        int index = 0;
-
-
-
-//        string path = Application.StartupPath + @"\Resources\";
-
-//        string[] images =
-//        {
-//         Application.StartupPath + @"\Resources\quanlyks.jpg",
-//        Application.StartupPath + @"\Resources\hinhnhanvien.jpg",
-//        Application.StartupPath + @"\Resources\sanh.jpg",
-//        Application.StartupPath + @"\Resources\phongngu.jpg",
-//        Application.StartupPath + @"\Resources\hoboi.jpg"
-
-//        };
-//        //chạy hình
-//        private void MainForm_Load(object sender, EventArgs e)
-//        {
-//            panel1.Location = new Point(-220, 50);
-//            pictureSlide.Image = Image.FromFile(images[0]);
-//            slideTimer.Start();
-//        }
-//        private void slideTimer_Tick(object sender, EventArgs e)
-//        {
-//            index++;
-
-//            if (index >= images.Length)
-//                index = 0;
-
-//            pictureSlide.Image = Image.FromFile(images[index]);
-//        }
-
-//        private void OpenChildForm(Form childForm)
-//        {
-//            panelContent.Controls.Clear();
-
-//            childForm.TopLevel = false;
-//            childForm.FormBorderStyle = FormBorderStyle.None;
-//            childForm.Dock = DockStyle.Fill;
-
-//            panelContent.Controls.Add(childForm);
-//            childForm.Show();
-//        }
-
-//        private void btRoom_Click(object sender, EventArgs e)
-//        {
-//            OpenChildForm(new RoomForm());
-//        }
-
-//        private void btCustomer_Click(object sender, EventArgs e)
-//        {
-//            OpenChildForm(new CustomerForm());
-//        }
-
-//        private void btnMenu_Click(object sender, EventArgs e)
-//        {
-//            if (menuOpen == false)
-//            {
-//                panel1.Location = new Point(0, 50);
-//                menuOpen = true;
-//            }
-//            else
-//            {
-//                panel1.Location = new Point(-220, 50);
-//                menuOpen = false;
-//            }
-//        }
-//    }
-//}
 
 namespace HotelManagement.GUI
 {
@@ -154,28 +75,7 @@ namespace HotelManagement.GUI
         // mở form con
         private void OpenChildForm(Form childForm)
         {
-            ////panelContent.Controls.Clear();
-
-            ////childForm.TopLevel = false;
-            ////childForm.FormBorderStyle = FormBorderStyle.None;
-            ////childForm.Dock = DockStyle.Fill;
-
-            ////panelContent.Controls.Add(childForm);
-            ////childForm.Show();
-
-            //// Ẩn slide khi mở form
-            //pictureSlide.Visible = false;
-
-            //panelContent.Controls.Clear();
-
-            //childForm.TopLevel = false;
-            //childForm.FormBorderStyle = FormBorderStyle.None;
-            //childForm.Dock = DockStyle.Fill;
-
-            //panelContent.Controls.Add(childForm);
-            //childForm.Show();
-
-
+           
             //  HIỆN LẠI PANEL
             panelContent.Visible = true;
 
@@ -204,6 +104,11 @@ namespace HotelManagement.GUI
         private void btCustomer_Click(object sender, EventArgs e)
         {
             OpenChildForm(new CustomerForm());
+        }
+        // nút dịch vụ
+        private void btDichVu_Click(object sender, EventArgs e)
+        {
+            OpenChildForm(new ServiceForm());
         }
 
         // nút ☰
@@ -235,10 +140,7 @@ namespace HotelManagement.GUI
 
         }
 
-        private void btDichVu_Click(object sender, EventArgs e)
-        {
-            OpenChildForm(new ServiceForm());
-        }
+       
     }
 }
 
