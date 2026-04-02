@@ -20,8 +20,61 @@ namespace HotelManagement.GUI
             InitializeComponent();
         }
 
+        //hiển thị danh sách khách hàng từ bảng customer
+        void LoadKhachHang()
+        {
+            dataKH.Rows.Clear();
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+
+                string query = "SELECT TenKH,GioiTinh,CCCD,SDT,DiaChi,QuocTich FROM Customer";
+
+                SqlCommand cmd = new SqlCommand(query, conn);
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    dataKH.Rows.Add(
+                        reader["TenKH"].ToString(),
+                        reader["CCCD"].ToString(),
+                        reader["SDT"].ToString(),
+                        reader["DiaChi"].ToString(),
+                        reader["GioiTinh"].ToString(),
+                        reader["QuocTich"].ToString(),
+                         "✏",
+                        "🗑"
+                    );
+                }
+            }
+        }
+
         private void CustomerForm_Load(object sender, EventArgs e)
         {
+            panelThongTin.Visible = false;
+            panelSuaKH.Visible = false;
+
+            dataKH.CellClick += dataKH_CellClick;
+            //icon sửa và xóa
+            dataKH.Columns["colSua"].DefaultCellStyle.ForeColor = Color.Goldenrod;
+            dataKH.Columns["colXoa"].DefaultCellStyle.ForeColor = Color.Red;
+
+            dataKH.DefaultCellStyle.Font = new Font("Segoe UI Emoji", 11);
+            //nút tìm
+            txtTim.Text = "🔍 Nhập tên khách hàng cần tìm";
+            txtTim.ForeColor = Color.Gray;
+
+            LoadKhachHang();
+
+            //Canh giữa tất cả dữ liệu trong DataGridView
+            //dataKH.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            // Canh giữa icon sửa/xóa
+            dataKH.Columns["colSua"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataKH.Columns["colXoa"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+            //Canh giữa header
+            dataKH.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             // Placeholder
             SetPlaceholder(txtTenKH, "Họ và tên khách hàng");
             SetPlaceholder(txtCccd, "Mã căn cước công dân");
@@ -75,29 +128,6 @@ namespace HotelManagement.GUI
             }
         }
 
-        //void AddPlaceholder(object sender, EventArgs e)
-        //{
-        //    TextBox txt = (TextBox)sender;
-
-        //    if (txt.Text == "")
-        //    {
-        //        if (txt == txtTenKH)
-        //            SetPlaceholder(txt, "Họ và tên khách hàng");
-
-        //        else if (txt == txtCccd)
-        //            SetPlaceholder(txt, "Mã căn cước công dân");
-
-        //        else if (txt == txtSDT)
-        //            SetPlaceholder(txt, "Số điện thoại");
-
-        //        else if (txt == txtDiaChi)
-        //            SetPlaceholder(txt, "Địa chỉ");
-
-        //        else if (txt == txtQuocTich)
-        //            SetPlaceholder(txt, "Quốc tịch");
-        //    }
-        //}
-
         // ===== NÚT THÊM =====
 
         private void btnThem_Click(object sender, EventArgs e)
@@ -108,7 +138,7 @@ namespace HotelManagement.GUI
                 MessageBox.Show("Vui lòng nhập đầy đủ thông tin");
                 return;
             }
-            
+
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
@@ -143,11 +173,28 @@ namespace HotelManagement.GUI
                 cmd.Parameters.AddWithValue("@QuocTich", txtQuocTich.Text);
 
                 cmd.ExecuteNonQuery();
+                LoadKhachHang();
 
-                MessageBox.Show("Thêm khách hàng thành công");
 
-                this.Close();
+
             }
+            //            dataKH.Rows.Add(
+            //            txtTenKH.Text,
+            //            txtCccd.Text,
+            //            txtSDT.Text,
+            //            txtDiaChi.Text,
+            //            cbGioiTinh.Text,
+            //            txtQuocTich.Text
+            //);
+            txtTenKH.Clear();
+            txtCccd.Clear();
+            txtSDT.Clear();
+            txtDiaChi.Clear();
+            txtQuocTich.Clear();
+
+            panelThongTin.Visible = false;
+            MessageBox.Show("Thêm khách hàng thành công");
+
         }
 
         // ===== NÚT HỦY =====
@@ -155,7 +202,7 @@ namespace HotelManagement.GUI
         private void btnHuy_Click(object sender, EventArgs e)
         {
             MessageBox.Show("Hủy thành công");
-            this.Close();
+            panelThongTin.Visible = false;
         }
 
         private void txtTenKH_Enter(object sender, EventArgs e)
@@ -166,6 +213,149 @@ namespace HotelManagement.GUI
         private void txtTenKH_Leave(object sender, EventArgs e)
         {
 
+        }
+
+        private void btThem_Click(object sender, EventArgs e)
+        {
+            panelSuaKH.Visible = false;
+            panelThongTin.Visible = true;
+
+        }
+
+        private void txtTim_Enter(object sender, EventArgs e)
+        {
+            if (txtTim.Text == "🔍 Nhập tên khách hàng cần tìm")
+            {
+                txtTim.Text = "";
+                txtTim.ForeColor = Color.Black;
+            }
+        }
+
+        private void txtTim_Leave(object sender, EventArgs e)
+        {
+            if (txtTim.Text == "")
+            {
+                txtTim.Text = "🔍 Nhập tên khách hàng cần tìm";
+                txtTim.ForeColor = Color.Gray;
+            }
+        }
+
+        private void txtTim_Click(object sender, EventArgs e)
+        {
+            dataKH.Rows.Clear();
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+
+                string query = "SELECT TenKH,GioiTinh,CCCD,SDT,DiaChi,QuocTich FROM Customer WHERE TenKH LIKE @ten";
+
+                SqlCommand cmd = new SqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@ten", "%" + txtTim.Text + "%");
+
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    dataKH.Rows.Add(
+                        reader["TenKH"].ToString(),
+                        reader["CCCD"].ToString(),
+                        reader["SDT"].ToString(),
+                        reader["DiaChi"].ToString(),
+                        reader["GioiTinh"].ToString(),
+                        reader["QuocTich"].ToString(),
+                        "✏",
+                        "🗑"
+                    );
+                }
+            }
+        }
+
+        private void dataKH_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0) return;
+
+            // ===== NÚT XÓA =====
+            if (dataKH.Columns[e.ColumnIndex].Name == "colXoa")
+            {
+                DialogResult r = MessageBox.Show(
+                    "Bạn có chắc muốn xóa khách hàng?",
+                    "Xác nhận",
+                    MessageBoxButtons.YesNo);
+
+                if (r == DialogResult.Yes)
+                {
+                    string cccd = dataKH.Rows[e.RowIndex].Cells[1].Value.ToString();
+
+                    using (SqlConnection conn = new SqlConnection(connectionString))
+                    {
+                        conn.Open();
+
+                        string query = "DELETE FROM Customer WHERE CCCD=@cccd";
+
+                        SqlCommand cmd = new SqlCommand(query, conn);
+                        cmd.Parameters.AddWithValue("@cccd", cccd);
+
+                        cmd.ExecuteNonQuery();
+                    }
+
+                    LoadKhachHang();
+                }
+            }
+
+            // ===== NÚT SỬA =====
+            if (dataKH.Columns[e.ColumnIndex].Name == "colSua")
+            {
+                panelThongTin.Visible = false;
+                panelSuaKH.Parent = this;
+                panelSuaKH.Visible = true;
+                panelSuaKH.BringToFront();
+
+                txtTenSua.Text = dataKH.Rows[e.RowIndex].Cells[0].Value.ToString();
+                txtCccdSua.Text = dataKH.Rows[e.RowIndex].Cells[1].Value.ToString();
+                txtSDTSua.Text = dataKH.Rows[e.RowIndex].Cells[2].Value.ToString();
+                txtDiaChiSua.Text = dataKH.Rows[e.RowIndex].Cells[3].Value.ToString();
+                cbGioiTinhSua.Text = dataKH.Rows[e.RowIndex].Cells[4].Value.ToString();
+                txtQuocTichSua.Text = dataKH.Rows[e.RowIndex].Cells[5].Value.ToString();
+                LoadKhachHang();
+            }
+        }
+        private void btCapnhap_Click(object sender, EventArgs e)
+        {
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+
+                string query = @"UPDATE Customer
+                         SET TenKH=@ten,
+                             GioiTinh=@gioitinh,
+                             SDT=@sdt,
+                             DiaChi=@diachi,
+                             QuocTich=@quoctich
+                         WHERE CCCD=@cccd";
+
+                SqlCommand cmd = new SqlCommand(query, conn);
+
+                cmd.Parameters.AddWithValue("@ten", txtTenSua.Text);
+                cmd.Parameters.AddWithValue("@gioitinh", cbGioiTinhSua.Text);
+                cmd.Parameters.AddWithValue("@sdt", txtSDTSua.Text);
+                cmd.Parameters.AddWithValue("@diachi", txtDiaChiSua.Text);
+                cmd.Parameters.AddWithValue("@quoctich", txtQuocTichSua.Text);
+                cmd.Parameters.AddWithValue("@cccd", txtCccdSua.Text);
+
+                cmd.ExecuteNonQuery();
+            }
+
+            MessageBox.Show("Cập nhật thành công");
+
+            panelSuaKH.Visible = false;
+            LoadKhachHang();
+        }
+
+        private void btHuySua_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Hủy thành công");
+            panelSuaKH.Visible = false;
         }
     }
 }
