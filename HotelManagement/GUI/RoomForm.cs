@@ -24,7 +24,7 @@ namespace HotelManagement.GUI
         private void SearchRoom()
         {
             string keyword = txtTimKiem.Text.ToLower();
-            bool onlyActive = checkBoxActive.Checked;
+         
 
             HotelManagementEntities db = new HotelManagementEntities();
 
@@ -41,11 +41,7 @@ namespace HotelManagement.GUI
                 );
             }
 
-            // lọc trạng thái
-            if (onlyActive)
-            {
-                query = query.Where(r => r.Status.ToLower() == "trống");
-            }
+      
 
             dataGridView1.DataSource = query
                 .Select(r => new
