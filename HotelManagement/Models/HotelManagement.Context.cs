@@ -26,12 +26,13 @@ namespace HotelManagement.Models
         }
     
         public virtual DbSet<Account> Accounts { get; set; }
-        public virtual DbSet<Booking> Bookings { get; set; }
         public virtual DbSet<BookingDetail> BookingDetails { get; set; }
-        public virtual DbSet<Customer> Customers { get; set; }
         public virtual DbSet<Invoice> Invoices { get; set; }
         public virtual DbSet<Room> Rooms { get; set; }
         public virtual DbSet<RoomType> RoomTypes { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
+        public virtual DbSet<Booking> Bookings { get; set; }
+        public virtual DbSet<Customer> Customers { get; set; }
+        public virtual DbSet<Service> Services { get; set; }
     }
 }
