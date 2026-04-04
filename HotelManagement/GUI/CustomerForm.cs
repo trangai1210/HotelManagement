@@ -55,7 +55,11 @@ namespace HotelManagement.GUI
             panelThongTin.Visible = false;
             panelSuaKH.Visible = false;
 
-            dataKH.CellClick += dataKH_CellClick;
+            // nhập số cho sdt cccd
+            txtSDT.KeyPress += ChiNhapSo;
+            txtCccd.KeyPress += ChiNhapSo;
+            txtSDTSua.KeyPress += ChiNhapSo;
+            txtCccdSua.KeyPress += ChiNhapSo;
             //icon sửa và xóa
             dataKH.Columns["colSua"].DefaultCellStyle.ForeColor = Color.Goldenrod;
             dataKH.Columns["colXoa"].DefaultCellStyle.ForeColor = Color.Red;
@@ -64,6 +68,7 @@ namespace HotelManagement.GUI
             //nút tìm
             txtTim.Text = "🔍 Nhập tên khách hàng cần tìm";
             txtTim.ForeColor = Color.Gray;
+            txtTim.TextChanged += txtTim_TextChanged;
 
             LoadKhachHang();
 
@@ -196,12 +201,20 @@ namespace HotelManagement.GUI
             MessageBox.Show("Thêm khách hàng thành công");
 
         }
-
+        //chỉ cho nhập số vào cccd và sdt
+        private void ChiNhapSo(object sender, KeyPressEventArgs e)
+        {
+            // chỉ cho nhập số và phím backspace
+            if (!char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
         // ===== NÚT HỦY =====
 
         private void btnHuy_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Hủy thành công");
+            //MessageBox.Show("Hủy thành công");
             panelThongTin.Visible = false;
         }
 
@@ -239,20 +252,27 @@ namespace HotelManagement.GUI
                 txtTim.ForeColor = Color.Gray;
             }
         }
-
-        private void txtTim_Click(object sender, EventArgs e)
+        void TimKhachHang()
         {
+            if (txtTim.Text.Trim() == "")
+            {
+                LoadKhachHang();
+                return;
+            }
+
             dataKH.Rows.Clear();
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
 
-                string query = "SELECT TenKH,GioiTinh,CCCD,SDT,DiaChi,QuocTich FROM Customer WHERE TenKH LIKE @ten";
+                string query = @"SELECT TenKH,GioiTinh,CCCD,SDT,DiaChi,QuocTich
+                         FROM Customer
+                         WHERE TenKH LIKE @ten";
 
                 SqlCommand cmd = new SqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@ten", "%" + txtTim.Text + "%");
-
+                // đọc lại toàn bộ data bên bảng customer
                 SqlDataReader reader = cmd.ExecuteReader();
 
                 while (reader.Read())
@@ -270,10 +290,44 @@ namespace HotelManagement.GUI
                 }
             }
         }
+        //private void txtTim_Click(object sender, EventArgs e)
+        //{
+        //    dataKH.Rows.Clear();
+
+        //    using (SqlConnection conn = new SqlConnection(connectionString))
+        //    {
+        //        conn.Open();
+
+        //        string query = "SELECT TenKH,GioiTinh,CCCD,SDT,DiaChi,QuocTich FROM Customer WHERE TenKH LIKE @ten";
+
+        //        SqlCommand cmd = new SqlCommand(query, conn);
+        //        cmd.Parameters.AddWithValue("@ten", "%" + txtTim.Text + "%");
+
+        //        SqlDataReader reader = cmd.ExecuteReader();
+
+        //        while (reader.Read())
+        //        {
+        //            dataKH.Rows.Add(
+        //                reader["TenKH"].ToString(),
+        //                reader["CCCD"].ToString(),
+        //                reader["SDT"].ToString(),
+        //                reader["DiaChi"].ToString(),
+        //                reader["GioiTinh"].ToString(),
+        //                reader["QuocTich"].ToString(),
+        //                "✏",
+        //                "🗑"
+        //            );
+        //        }
+        //    }
+        //}
 
         private void dataKH_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex < 0) return;
+            if (e.RowIndex < 0 || e.ColumnIndex < 0) return;
+            // chỉ cho phép xử lý khi bấm vào cột sửa hoặc xóa
+            if (dataKH.Columns[e.ColumnIndex].Name != "colSua" &&
+                dataKH.Columns[e.ColumnIndex].Name != "colXoa")
+                return;
 
             // ===== NÚT XÓA =====
             if (dataKH.Columns[e.ColumnIndex].Name == "colXoa")
@@ -317,7 +371,7 @@ namespace HotelManagement.GUI
                 txtDiaChiSua.Text = dataKH.Rows[e.RowIndex].Cells[3].Value.ToString();
                 cbGioiTinhSua.Text = dataKH.Rows[e.RowIndex].Cells[4].Value.ToString();
                 txtQuocTichSua.Text = dataKH.Rows[e.RowIndex].Cells[5].Value.ToString();
-                LoadKhachHang();
+                //LoadKhachHang();
             }
         }
         private void btCapnhap_Click(object sender, EventArgs e)
@@ -354,8 +408,26 @@ namespace HotelManagement.GUI
 
         private void btHuySua_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Hủy thành công");
+            //MessageBox.Show("Hủy thành công");
             panelSuaKH.Visible = false;
         }
+
+        //private void txtTim_KeyDown(object sender, KeyEventArgs e)
+        //{
+        //    if (e.KeyCode == Keys.Enter)
+        //    {
+        //        TimKhachHang();
+        //    }
+        //}
+
+        private void txtTim_TextChanged(object sender, EventArgs e)
+        {
+            if (txtTim.ForeColor == Color.Gray) return;
+
+            TimKhachHang();
+
+        }
+
+      
     }
 }
