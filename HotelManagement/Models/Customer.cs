@@ -20,11 +20,13 @@ namespace HotelManagement.Models
             this.Bookings = new HashSet<Booking>();
         }
     
-        public int CustomerID { get; set; }
-        public string CustomerName { get; set; }
-        public string Phone { get; set; }
-        public string Address { get; set; }
-        public string IDCard { get; set; }
+        public int MaKH { get; set; }
+        public string TenKH { get; set; }
+        public string SDT { get; set; }
+        public string DiaChi { get; set; }
+        public string CCCD { get; set; }
+        public string GioiTinh { get; set; }
+        public string QuocTich { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Booking> Bookings { get; set; }

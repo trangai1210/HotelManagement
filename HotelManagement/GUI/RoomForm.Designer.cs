@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.groupboxTimKiem = new System.Windows.Forms.GroupBox();
-            this.checkBoxActive = new System.Windows.Forms.CheckBox();
             this.txtTimKiem = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBoxThongTinPhong = new System.Windows.Forms.GroupBox();
@@ -45,7 +44,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.btSua = new System.Windows.Forms.Button();
             this.btXoa = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
             this.btThem = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.entityCommand1 = new System.Data.Entity.Core.EntityClient.EntityCommand();
@@ -59,7 +57,6 @@
             // 
             this.groupboxTimKiem.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupboxTimKiem.Controls.Add(this.checkBoxActive);
             this.groupboxTimKiem.Controls.Add(this.txtTimKiem);
             this.groupboxTimKiem.Controls.Add(this.label1);
             this.groupboxTimKiem.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -70,19 +67,9 @@
             this.groupboxTimKiem.TabStop = false;
             this.groupboxTimKiem.Text = "Tìm kiếm";
             // 
-            // checkBoxActive
-            // 
-            this.checkBoxActive.AutoSize = true;
-            this.checkBoxActive.Location = new System.Drawing.Point(441, 46);
-            this.checkBoxActive.Name = "checkBoxActive";
-            this.checkBoxActive.Size = new System.Drawing.Size(265, 29);
-            this.checkBoxActive.TabIndex = 2;
-            this.checkBoxActive.Text = "Chỉ phòng đang hoạt động";
-            this.checkBoxActive.UseVisualStyleBackColor = true;
-            // 
             // txtTimKiem
             // 
-            this.txtTimKiem.Location = new System.Drawing.Point(94, 46);
+            this.txtTimKiem.Location = new System.Drawing.Point(200, 46);
             this.txtTimKiem.Name = "txtTimKiem";
             this.txtTimKiem.Size = new System.Drawing.Size(309, 30);
             this.txtTimKiem.TabIndex = 1;
@@ -93,9 +80,9 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(37, 46);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(51, 25);
+            this.label1.Size = new System.Drawing.Size(157, 25);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Tìm:";
+            this.label1.Text = "Nhập mã phòng:";
             // 
             // groupBoxThongTinPhong
             // 
@@ -113,7 +100,6 @@
             this.groupBoxThongTinPhong.Controls.Add(this.label2);
             this.groupBoxThongTinPhong.Controls.Add(this.btSua);
             this.groupBoxThongTinPhong.Controls.Add(this.btXoa);
-            this.groupBoxThongTinPhong.Controls.Add(this.button2);
             this.groupBoxThongTinPhong.Controls.Add(this.btThem);
             this.groupBoxThongTinPhong.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBoxThongTinPhong.Location = new System.Drawing.Point(31, 142);
@@ -217,6 +203,7 @@
             this.btSua.TabIndex = 4;
             this.btSua.Text = "Sửa";
             this.btSua.UseVisualStyleBackColor = true;
+            this.btSua.Click += new System.EventHandler(this.btSua_Click);
             // 
             // btXoa
             // 
@@ -227,16 +214,7 @@
             this.btXoa.TabIndex = 3;
             this.btXoa.Text = "Xóa";
             this.btXoa.UseVisualStyleBackColor = true;
-            // 
-            // button2
-            // 
-            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.Location = new System.Drawing.Point(315, 426);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(108, 39);
-            this.button2.TabIndex = 2;
-            this.button2.Text = "Thêm";
-            this.button2.UseVisualStyleBackColor = true;
+            this.btXoa.Click += new System.EventHandler(this.btXoa_Click);
             // 
             // btThem
             // 
@@ -247,6 +225,7 @@
             this.btThem.TabIndex = 1;
             this.btThem.Text = "Thêm";
             this.btThem.UseVisualStyleBackColor = true;
+            this.btThem.Click += new System.EventHandler(this.btThem_Click);
             // 
             // dataGridView1
             // 
@@ -261,6 +240,7 @@
             this.dataGridView1.RowTemplate.Height = 24;
             this.dataGridView1.Size = new System.Drawing.Size(473, 475);
             this.dataGridView1.TabIndex = 0;
+            this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
             // 
             // entityCommand1
             // 
@@ -298,12 +278,10 @@
         private System.Windows.Forms.GroupBox groupBoxThongTinPhong;
         private System.Windows.Forms.TextBox txtTimKiem;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.CheckBox checkBoxActive;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Data.Entity.Core.EntityClient.EntityCommand entityCommand1;
         private System.Windows.Forms.Button btSua;
         private System.Windows.Forms.Button btXoa;
-        private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button btThem;
         private System.Windows.Forms.TextBox txtMaPhong;
         private System.Windows.Forms.Label label2;

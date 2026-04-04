@@ -30,6 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btQLNhanVien = new System.Windows.Forms.Button();
             this.btDichVu = new System.Windows.Forms.Button();
             this.btReport = new System.Windows.Forms.Button();
             this.btRoom = new System.Windows.Forms.Button();
@@ -48,19 +49,33 @@
             // 
             // panel1
             // 
+            this.panel1.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.panel1.AutoScrollMargin = new System.Drawing.Size(220, 0);
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(62)))), ((int)(((byte)(80)))));
+            this.panel1.Controls.Add(this.btQLNhanVien);
             this.panel1.Controls.Add(this.btDichVu);
             this.panel1.Controls.Add(this.btReport);
             this.panel1.Controls.Add(this.btRoom);
             this.panel1.Controls.Add(this.btCustomer);
             this.panel1.Controls.Add(this.btInvoice);
             this.panel1.Controls.Add(this.btBooking);
-
-            this.panel1.Location = new System.Drawing.Point(0, 66);
+            this.panel1.Location = new System.Drawing.Point(0, 47);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(286, 668);
+            this.panel1.Size = new System.Drawing.Size(286, 649);
             this.panel1.TabIndex = 0;
+            // 
+            // btQLNhanVien
+            // 
+            this.btQLNhanVien.BackColor = System.Drawing.Color.CadetBlue;
+            this.btQLNhanVien.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btQLNhanVien.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btQLNhanVien.ForeColor = System.Drawing.Color.White;
+            this.btQLNhanVien.Location = new System.Drawing.Point(-6, 540);
+            this.btQLNhanVien.Name = "btQLNhanVien";
+            this.btQLNhanVien.Size = new System.Drawing.Size(292, 89);
+            this.btQLNhanVien.TabIndex = 6;
+            this.btQLNhanVien.Text = "QL Nhân Viên";
+            this.btQLNhanVien.UseVisualStyleBackColor = false;
             // 
             // btDichVu
             // 
@@ -146,11 +161,10 @@
             // pictureSlide
             // 
             this.pictureSlide.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-         
-         
             this.pictureSlide.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureSlide.Location = new System.Drawing.Point(0, 0);
             this.pictureSlide.Name = "pictureSlide";
-            this.pictureSlide.Size = new System.Drawing.Size(890, 668);
+            this.pictureSlide.Size = new System.Drawing.Size(1318, 677);
             this.pictureSlide.TabIndex = 1;
             this.pictureSlide.TabStop = false;
             // 
@@ -161,7 +175,7 @@
             this.panelTop.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelTop.Location = new System.Drawing.Point(0, 0);
             this.panelTop.Name = "panelTop";
-            this.panelTop.Size = new System.Drawing.Size(1207, 66);
+            this.panelTop.Size = new System.Drawing.Size(1318, 66);
             this.panelTop.TabIndex = 2;
             // 
             // btnMenu
@@ -180,10 +194,11 @@
             // 
             // panelContent
             // 
-            this.panelContent.Dock = System.Windows.Forms.DockStyle.Right;
+            this.panelContent.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.panelContent.Location = new System.Drawing.Point(283, 66);
             this.panelContent.Name = "panelContent";
-            this.panelContent.Size = new System.Drawing.Size(924, 553);
+            this.panelContent.Size = new System.Drawing.Size(1035, 611);
             this.panelContent.TabIndex = 1;
             // 
             // slideTimer
@@ -196,12 +211,11 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(240)))), ((int)(((byte)(241)))));
-            this.ClientSize = new System.Drawing.Size(1207, 619);
-            this.Controls.Add(this.pictureSlide);
-            this.Controls.Add(this.panel1);
+            this.ClientSize = new System.Drawing.Size(1318, 677);
             this.Controls.Add(this.panelContent);
             this.Controls.Add(this.panelTop);
-        
+            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.pictureSlide);
             this.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "MainForm";
@@ -230,5 +244,6 @@
         private System.Windows.Forms.Panel panelTop;
         private System.Windows.Forms.Button btnMenu;
         private System.Windows.Forms.Button btDichVu;
+        private System.Windows.Forms.Button btQLNhanVien;
     }
 }
