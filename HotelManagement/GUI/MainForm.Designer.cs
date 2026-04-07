@@ -112,7 +112,7 @@
             this.btRoom.ForeColor = System.Drawing.Color.White;
             this.btRoom.Location = new System.Drawing.Point(-6, 0);
             this.btRoom.Name = "btRoom";
-            this.btRoom.Size = new System.Drawing.Size(292, 98);
+            this.btRoom.Size = new System.Drawing.Size(292, 103);
             this.btRoom.TabIndex = 0;
             this.btRoom.Text = "Phòng";
             this.btRoom.UseVisualStyleBackColor = false;
@@ -208,7 +208,7 @@
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(240)))), ((int)(((byte)(241)))));
             this.ClientSize = new System.Drawing.Size(1318, 677);
