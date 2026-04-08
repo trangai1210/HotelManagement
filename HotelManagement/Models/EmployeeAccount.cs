@@ -12,11 +12,14 @@ namespace HotelManagement.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Account
+    public partial class EmployeeAccount
     {
         public int AccountID { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
-        public string Role { get; set; }
+        public string QuyenHan { get; set; }
+        public string MaNV { get; set; }
+    
+        public virtual Employee Employee { get; set; }
     }
 }

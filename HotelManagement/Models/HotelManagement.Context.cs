@@ -25,7 +25,6 @@ namespace HotelManagement.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Account> Accounts { get; set; }
         public virtual DbSet<BookingDetail> BookingDetails { get; set; }
         public virtual DbSet<Invoice> Invoices { get; set; }
         public virtual DbSet<Room> Rooms { get; set; }
@@ -34,5 +33,8 @@ namespace HotelManagement.Models
         public virtual DbSet<Booking> Bookings { get; set; }
         public virtual DbSet<Customer> Customers { get; set; }
         public virtual DbSet<Service> Services { get; set; }
+        public virtual DbSet<Employee> Employees { get; set; }
+        public virtual DbSet<Role> Roles { get; set; }
+        public virtual DbSet<EmployeeAccount> EmployeeAccounts { get; set; }
     }
 }

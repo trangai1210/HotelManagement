@@ -44,20 +44,20 @@ namespace HotelManagement.GUI
             }
             HotelManagementEntities db = new HotelManagementEntities();
 
-            var user = db.Accounts.FirstOrDefault(u=>u.Username==username);
+            var user = db.EmployeeAccounts.FirstOrDefault(u=>u.Username==username);
             if(user!=null)
             {
                 MessageBox.Show("Tài khoản đã tồn tại");
                 return;
             }
 
-            Account newAccount = new Account();
+            EmployeeAccount newAccount = new EmployeeAccount();
 
             newAccount.Username = username;
             newAccount.Password = password;
-            newAccount.Role = "Staff";
+            newAccount.QuyenHan = "Staff";
 
-            db.Accounts.Add(newAccount);
+            db.EmployeeAccounts.Add(newAccount);
             db.SaveChanges();
 
             MessageBox.Show("Đăng ký thành công");

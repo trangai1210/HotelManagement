@@ -5,7 +5,6 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="679a823c306147dd90f500ee6c948942" Name="Diagram1">
-        <EntityTypeShape EntityType="HotelManagementModel.Account" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="HotelManagementModel.BookingDetail" Width="1.5" PointX="5.75" PointY="1.375" IsExpanded="true" />
         <EntityTypeShape EntityType="HotelManagementModel.Invoice" Width="1.5" PointX="5.25" PointY="6.375" IsExpanded="true" />
         <EntityTypeShape EntityType="HotelManagementModel.Room" Width="1.5" PointX="3" PointY="7.375" IsExpanded="true" />
@@ -19,6 +18,11 @@
         <AssociationConnector Association="HotelManagementModel.FK_Booking_Customer" />
         <AssociationConnector Association="HotelManagementModel.FK_BookingDetail_Booking" />
         <AssociationConnector Association="HotelManagementModel.FK_Invoice_Booking" />
+        <EntityTypeShape EntityType="HotelManagementModel.Employee" Width="1.5" PointX="9.625" PointY="7" />
+        <EntityTypeShape EntityType="HotelManagementModel.Role" Width="1.5" PointX="7.375" PointY="7.875" />
+        <AssociationConnector Association="HotelManagementModel.FK__Employees__MaChu__08B54D69" />
+        <EntityTypeShape EntityType="HotelManagementModel.EmployeeAccount" Width="1.5" PointX="11.875" PointY="7.625" />
+        <AssociationConnector Association="HotelManagementModel.FK_Account_Employees" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

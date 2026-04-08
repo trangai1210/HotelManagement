@@ -101,7 +101,7 @@ namespace HotelManagement.GUI
                 r.RoomTypeID = (int)comboBoxLoaiPhong.SelectedValue;
                 r.Status = "Trống";
 
-                //lấy giá trị tâng
+                //lấy giá trị tâng\]U
                 r.Floor=(int)numericUpDownTang.Value;
 
                 //Thêm vào database
