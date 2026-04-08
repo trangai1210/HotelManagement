@@ -51,7 +51,7 @@
             // 
             this.panel1.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.panel1.AutoScrollMargin = new System.Drawing.Size(220, 0);
-            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(62)))), ((int)(((byte)(80)))));
+            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(35)))), ((int)(((byte)(35)))));
             this.panel1.Controls.Add(this.btQLNhanVien);
             this.panel1.Controls.Add(this.btDichVu);
             this.panel1.Controls.Add(this.btReport);
@@ -59,14 +59,14 @@
             this.panel1.Controls.Add(this.btCustomer);
             this.panel1.Controls.Add(this.btInvoice);
             this.panel1.Controls.Add(this.btBooking);
-            this.panel1.Location = new System.Drawing.Point(0, 47);
+            this.panel1.Location = new System.Drawing.Point(0, 24);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(286, 649);
             this.panel1.TabIndex = 0;
             // 
             // btQLNhanVien
             // 
-            this.btQLNhanVien.BackColor = System.Drawing.Color.CadetBlue;
+            this.btQLNhanVien.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(35)))), ((int)(((byte)(35)))));
             this.btQLNhanVien.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btQLNhanVien.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btQLNhanVien.ForeColor = System.Drawing.Color.White;
@@ -79,7 +79,7 @@
             // 
             // btDichVu
             // 
-            this.btDichVu.BackColor = System.Drawing.Color.CadetBlue;
+            this.btDichVu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(35)))), ((int)(((byte)(35)))));
             this.btDichVu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btDichVu.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btDichVu.ForeColor = System.Drawing.Color.White;
@@ -93,7 +93,7 @@
             // 
             // btReport
             // 
-            this.btReport.BackColor = System.Drawing.Color.CadetBlue;
+            this.btReport.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(35)))), ((int)(((byte)(35)))));
             this.btReport.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btReport.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btReport.ForeColor = System.Drawing.Color.White;
@@ -106,13 +106,13 @@
             // 
             // btRoom
             // 
-            this.btRoom.BackColor = System.Drawing.Color.CadetBlue;
+            this.btRoom.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(35)))), ((int)(((byte)(35)))));
             this.btRoom.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btRoom.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btRoom.ForeColor = System.Drawing.Color.White;
-            this.btRoom.Location = new System.Drawing.Point(-6, 0);
+            this.btRoom.Location = new System.Drawing.Point(-6, -7);
             this.btRoom.Name = "btRoom";
-            this.btRoom.Size = new System.Drawing.Size(292, 103);
+            this.btRoom.Size = new System.Drawing.Size(292, 110);
             this.btRoom.TabIndex = 0;
             this.btRoom.Text = "Phòng";
             this.btRoom.UseVisualStyleBackColor = false;
@@ -120,7 +120,7 @@
             // 
             // btCustomer
             // 
-            this.btCustomer.BackColor = System.Drawing.Color.CadetBlue;
+            this.btCustomer.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(35)))), ((int)(((byte)(35)))));
             this.btCustomer.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btCustomer.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btCustomer.ForeColor = System.Drawing.Color.White;
@@ -134,7 +134,7 @@
             // 
             // btInvoice
             // 
-            this.btInvoice.BackColor = System.Drawing.Color.CadetBlue;
+            this.btInvoice.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(35)))), ((int)(((byte)(35)))));
             this.btInvoice.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btInvoice.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btInvoice.ForeColor = System.Drawing.Color.White;
@@ -147,7 +147,7 @@
             // 
             // btBooking
             // 
-            this.btBooking.BackColor = System.Drawing.Color.CadetBlue;
+            this.btBooking.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(35)))), ((int)(((byte)(35)))));
             this.btBooking.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btBooking.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btBooking.ForeColor = System.Drawing.Color.White;
@@ -164,29 +164,29 @@
             this.pictureSlide.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pictureSlide.Location = new System.Drawing.Point(0, 0);
             this.pictureSlide.Name = "pictureSlide";
-            this.pictureSlide.Size = new System.Drawing.Size(1318, 677);
+            this.pictureSlide.Size = new System.Drawing.Size(1318, 630);
             this.pictureSlide.TabIndex = 1;
             this.pictureSlide.TabStop = false;
             // 
             // panelTop
             // 
-            this.panelTop.BackColor = System.Drawing.Color.White;
+            this.panelTop.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(28)))), ((int)(((byte)(28)))));
             this.panelTop.Controls.Add(this.btnMenu);
             this.panelTop.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelTop.Location = new System.Drawing.Point(0, 0);
             this.panelTop.Name = "panelTop";
-            this.panelTop.Size = new System.Drawing.Size(1318, 66);
+            this.panelTop.Size = new System.Drawing.Size(1318, 41);
             this.panelTop.TabIndex = 2;
             // 
             // btnMenu
             // 
-            this.btnMenu.BackColor = System.Drawing.Color.White;
+            this.btnMenu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(28)))), ((int)(((byte)(28)))));
             this.btnMenu.Dock = System.Windows.Forms.DockStyle.Left;
             this.btnMenu.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.btnMenu.Font = new System.Drawing.Font("Franklin Gothic Medium", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnMenu.Location = new System.Drawing.Point(0, 0);
             this.btnMenu.Name = "btnMenu";
-            this.btnMenu.Size = new System.Drawing.Size(82, 66);
+            this.btnMenu.Size = new System.Drawing.Size(82, 41);
             this.btnMenu.TabIndex = 0;
             this.btnMenu.Text = "≡";
             this.btnMenu.UseVisualStyleBackColor = false;
@@ -194,11 +194,11 @@
             // 
             // panelContent
             // 
-            this.panelContent.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelContent.Location = new System.Drawing.Point(283, 66);
+            this.panelContent.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.panelContent.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelContent.Location = new System.Drawing.Point(0, 41);
             this.panelContent.Name = "panelContent";
-            this.panelContent.Size = new System.Drawing.Size(1035, 611);
+            this.panelContent.Size = new System.Drawing.Size(1318, 589);
             this.panelContent.TabIndex = 1;
             // 
             // slideTimer
@@ -210,8 +210,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(240)))), ((int)(((byte)(241)))));
-            this.ClientSize = new System.Drawing.Size(1318, 677);
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(22)))), ((int)(((byte)(22)))));
+            this.ClientSize = new System.Drawing.Size(1318, 630);
             this.Controls.Add(this.panelContent);
             this.Controls.Add(this.panelTop);
             this.Controls.Add(this.panel1);
