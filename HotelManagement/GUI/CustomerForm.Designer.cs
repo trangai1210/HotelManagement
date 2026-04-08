@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label1 = new System.Windows.Forms.Label();
             this.panelThongTin = new System.Windows.Forms.Panel();
             this.panelSuaKH = new System.Windows.Forms.Panel();
@@ -63,6 +64,7 @@
             this.btThem = new System.Windows.Forms.Button();
             this.txtTim = new System.Windows.Forms.TextBox();
             this.dataKH = new System.Windows.Forms.DataGridView();
+            this.colMaKH = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colTen = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colCCCD = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colSDT = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -131,7 +133,7 @@
             this.panelSuaKH.Controls.Add(this.btCapnhap);
             this.panelSuaKH.Location = new System.Drawing.Point(1, 0);
             this.panelSuaKH.Name = "panelSuaKH";
-            this.panelSuaKH.Size = new System.Drawing.Size(697, 747);
+            this.panelSuaKH.Size = new System.Drawing.Size(687, 747);
             this.panelSuaKH.TabIndex = 18;
             this.panelSuaKH.Visible = false;
             // 
@@ -144,7 +146,7 @@
             this.txtTenSua.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtTenSua.Location = new System.Drawing.Point(117, 151);
             this.txtTenSua.Name = "txtTenSua";
-            this.txtTenSua.Size = new System.Drawing.Size(545, 39);
+            this.txtTenSua.Size = new System.Drawing.Size(535, 39);
             this.txtTenSua.TabIndex = 23;
             // 
             // label8
@@ -440,7 +442,7 @@
             this.btThem.BackColor = System.Drawing.Color.ForestGreen;
             this.btThem.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btThem.ForeColor = System.Drawing.Color.White;
-            this.btThem.Location = new System.Drawing.Point(1032, 15);
+            this.btThem.Location = new System.Drawing.Point(1134, 15);
             this.btThem.Name = "btThem";
             this.btThem.Size = new System.Drawing.Size(244, 60);
             this.btThem.TabIndex = 15;
@@ -455,14 +457,24 @@
             this.txtTim.Name = "txtTim";
             this.txtTim.Size = new System.Drawing.Size(362, 35);
             this.txtTim.TabIndex = 16;
-            this.txtTim.Click += new System.EventHandler(this.txtTim_Click);
+            this.txtTim.TextChanged += new System.EventHandler(this.txtTim_TextChanged);
             this.txtTim.Enter += new System.EventHandler(this.txtTim_Enter);
             this.txtTim.Leave += new System.EventHandler(this.txtTim_Leave);
             // 
             // dataKH
             // 
+            this.dataKH.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.DarkBlue;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataKH.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dataKH.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataKH.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.colMaKH,
             this.colTen,
             this.colCCCD,
             this.colSDT,
@@ -471,13 +483,23 @@
             this.colQuocTich,
             this.colSua,
             this.colXoa});
+            this.dataKH.EnableHeadersVisualStyles = false;
+            this.dataKH.GridColor = System.Drawing.Color.LightGray;
             this.dataKH.Location = new System.Drawing.Point(112, 116);
             this.dataKH.Name = "dataKH";
+            this.dataKH.RowHeadersVisible = false;
             this.dataKH.RowHeadersWidth = 62;
             this.dataKH.RowTemplate.Height = 28;
             this.dataKH.Size = new System.Drawing.Size(1344, 771);
             this.dataKH.TabIndex = 17;
             this.dataKH.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataKH_CellClick);
+            // 
+            // colMaKH
+            // 
+            this.colMaKH.HeaderText = "Mã KH";
+            this.colMaKH.MinimumWidth = 8;
+            this.colMaKH.Name = "colMaKH";
+            this.colMaKH.Width = 150;
             // 
             // colTen
             // 
@@ -598,6 +620,7 @@
         private System.Windows.Forms.ComboBox cbGioiTinhSua;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.TextBox txtTenSua;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colMaKH;
         private System.Windows.Forms.DataGridViewTextBoxColumn colTen;
         private System.Windows.Forms.DataGridViewTextBoxColumn colCCCD;
         private System.Windows.Forms.DataGridViewTextBoxColumn colSDT;

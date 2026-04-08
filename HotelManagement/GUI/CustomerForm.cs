@@ -29,7 +29,7 @@ namespace HotelManagement.GUI
             {
                 conn.Open();
 
-                string query = "SELECT TenKH,GioiTinh,CCCD,SDT,DiaChi,QuocTich FROM Customer";
+                string query = "SELECT MaKH,TenKH,GioiTinh,CCCD,SDT,DiaChi,QuocTich FROM Customer";
 
                 SqlCommand cmd = new SqlCommand(query, conn);
                 SqlDataReader reader = cmd.ExecuteReader();
@@ -37,6 +37,7 @@ namespace HotelManagement.GUI
                 while (reader.Read())
                 {
                     dataKH.Rows.Add(
+                        reader["MaKH"].ToString(),
                         reader["TenKH"].ToString(),
                         reader["CCCD"].ToString(),
                         reader["SDT"].ToString(),
@@ -55,7 +56,11 @@ namespace HotelManagement.GUI
             panelThongTin.Visible = false;
             panelSuaKH.Visible = false;
 
-            dataKH.CellClick += dataKH_CellClick;
+            // nhập số cho sdt cccd
+            txtSDT.KeyPress += ChiNhapSo;
+            txtCccd.KeyPress += ChiNhapSo;
+            txtSDTSua.KeyPress += ChiNhapSo;
+            txtCccdSua.KeyPress += ChiNhapSo;
             //icon sửa và xóa
             dataKH.Columns["colSua"].DefaultCellStyle.ForeColor = Color.Goldenrod;
             dataKH.Columns["colXoa"].DefaultCellStyle.ForeColor = Color.Red;
@@ -64,6 +69,7 @@ namespace HotelManagement.GUI
             //nút tìm
             txtTim.Text = "🔍 Nhập tên khách hàng cần tìm";
             txtTim.ForeColor = Color.Gray;
+            txtTim.TextChanged += txtTim_TextChanged;
 
             LoadKhachHang();
 
@@ -142,7 +148,19 @@ namespace HotelManagement.GUI
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
+                string getID = "SELECT TOP 1 MaKH FROM Customer ORDER BY MaKH DESC";
 
+                SqlCommand getCmd = new SqlCommand(getID, conn);
+                object result = getCmd.ExecuteScalar();
+
+                string newMaKH = "KH001";
+
+                if (result != null)
+                {
+                    string lastID = result.ToString(); // KH005
+                    int num = int.Parse(lastID.Substring(2)) + 1;
+                    newMaKH = "KH" + num.ToString("D3");
+                }
                 // kiểm tra CCCD trùng
                 string check = "SELECT COUNT(*) FROM Customer WHERE CCCD=@cccd";
 
@@ -159,12 +177,13 @@ namespace HotelManagement.GUI
 
                 // thêm khách hàng
                 string query = @"INSERT INTO Customer
-                                (TenKH,GioiTinh,CCCD,SDT,DiaChi,QuocTich)
+                                (MaKH,TenKH,GioiTinh,CCCD,SDT,DiaChi,QuocTich)
                                 VALUES
-                                (@TenKH,@GioiTinh,@CCCD,@SDT,@DiaChi,@QuocTich)";
+                                (@MaKH,@TenKH,@GioiTinh,@CCCD,@SDT,@DiaChi,@QuocTich)";
 
                 SqlCommand cmd = new SqlCommand(query, conn);
 
+                cmd.Parameters.AddWithValue("@MaKH", newMaKH);
                 cmd.Parameters.AddWithValue("@TenKH", txtTenKH.Text);
                 cmd.Parameters.AddWithValue("@GioiTinh", cbGioiTinh.Text);
                 cmd.Parameters.AddWithValue("@CCCD", txtCccd.Text);
@@ -196,12 +215,20 @@ namespace HotelManagement.GUI
             MessageBox.Show("Thêm khách hàng thành công");
 
         }
-
+        //chỉ cho nhập số vào cccd và sdt
+        private void ChiNhapSo(object sender, KeyPressEventArgs e)
+        {
+            // chỉ cho nhập số và phím backspace
+            if (!char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
         // ===== NÚT HỦY =====
 
         private void btnHuy_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Hủy thành công");
+            //MessageBox.Show("Hủy thành công");
             panelThongTin.Visible = false;
         }
 
@@ -239,27 +266,39 @@ namespace HotelManagement.GUI
                 txtTim.ForeColor = Color.Gray;
             }
         }
-
-        private void txtTim_Click(object sender, EventArgs e)
+        void TimKhachHang()
         {
+            // Nếu ô tìm kiếm trống hoặc đang hiện placeholder thì load lại toàn bộ
+            if (string.IsNullOrWhiteSpace(txtTim.Text) || txtTim.ForeColor == Color.Gray)
+            {
+                LoadKhachHang();
+                return;
+            }
+
             dataKH.Rows.Clear();
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
 
-                string query = "SELECT TenKH,GioiTinh,CCCD,SDT,DiaChi,QuocTich FROM Customer WHERE TenKH LIKE @ten";
+                // Sửa câu truy vấn: Thêm điều kiện OR MaKH LIKE @tukhoa
+                // SELECT thêm MaKH để hiển thị đúng cột
+                string query = @"SELECT MaKH, TenKH, GioiTinh, CCCD, SDT, DiaChi, QuocTich
+                         FROM Customer
+                         WHERE TenKH LIKE @tukhoa OR MaKH LIKE @tukhoa";
 
                 SqlCommand cmd = new SqlCommand(query, conn);
-                cmd.Parameters.AddWithValue("@ten", "%" + txtTim.Text + "%");
+                // Dùng chung 1 tham số @tukhoa cho cả 2 điều kiện
+                cmd.Parameters.AddWithValue("@tukhoa", "%" + txtTim.Text.Trim() + "%");
 
                 SqlDataReader reader = cmd.ExecuteReader();
 
                 while (reader.Read())
                 {
                     dataKH.Rows.Add(
+                        reader["MaKH"].ToString(),
                         reader["TenKH"].ToString(),
-                        reader["CCCD"].ToString(),
+                        reader["CCCD"].ToString(), // Lưu ý thứ tự cột khớp với DataGridView của bạn
                         reader["SDT"].ToString(),
                         reader["DiaChi"].ToString(),
                         reader["GioiTinh"].ToString(),
@@ -270,10 +309,44 @@ namespace HotelManagement.GUI
                 }
             }
         }
+        //private void txtTim_Click(object sender, EventArgs e)
+        //{
+        //    dataKH.Rows.Clear();
+
+        //    using (SqlConnection conn = new SqlConnection(connectionString))
+        //    {
+        //        conn.Open();
+
+        //        string query = "SELECT TenKH,GioiTinh,CCCD,SDT,DiaChi,QuocTich FROM Customer WHERE TenKH LIKE @ten";
+
+        //        SqlCommand cmd = new SqlCommand(query, conn);
+        //        cmd.Parameters.AddWithValue("@ten", "%" + txtTim.Text + "%");
+
+        //        SqlDataReader reader = cmd.ExecuteReader();
+
+        //        while (reader.Read())
+        //        {
+        //            dataKH.Rows.Add(
+        //                reader["TenKH"].ToString(),
+        //                reader["CCCD"].ToString(),
+        //                reader["SDT"].ToString(),
+        //                reader["DiaChi"].ToString(),
+        //                reader["GioiTinh"].ToString(),
+        //                reader["QuocTich"].ToString(),
+        //                "✏",
+        //                "🗑"
+        //            );
+        //        }
+        //    }
+        //}
 
         private void dataKH_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex < 0) return;
+            if (e.RowIndex < 0 || e.ColumnIndex < 0) return;
+            // chỉ cho phép xử lý khi bấm vào cột sửa hoặc xóa
+            if (dataKH.Columns[e.ColumnIndex].Name != "colSua" &&
+                dataKH.Columns[e.ColumnIndex].Name != "colXoa")
+                return;
 
             // ===== NÚT XÓA =====
             if (dataKH.Columns[e.ColumnIndex].Name == "colXoa")
@@ -317,7 +390,7 @@ namespace HotelManagement.GUI
                 txtDiaChiSua.Text = dataKH.Rows[e.RowIndex].Cells[3].Value.ToString();
                 cbGioiTinhSua.Text = dataKH.Rows[e.RowIndex].Cells[4].Value.ToString();
                 txtQuocTichSua.Text = dataKH.Rows[e.RowIndex].Cells[5].Value.ToString();
-                LoadKhachHang();
+                //LoadKhachHang();
             }
         }
         private void btCapnhap_Click(object sender, EventArgs e)
@@ -354,8 +427,26 @@ namespace HotelManagement.GUI
 
         private void btHuySua_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Hủy thành công");
+            //MessageBox.Show("Hủy thành công");
             panelSuaKH.Visible = false;
         }
+
+        //private void txtTim_KeyDown(object sender, KeyEventArgs e)
+        //{
+        //    if (e.KeyCode == Keys.Enter)
+        //    {
+        //        TimKhachHang();
+        //    }
+        //}
+
+        private void txtTim_TextChanged(object sender, EventArgs e)
+        {
+            if (txtTim.ForeColor == Color.Gray) return;
+
+            TimKhachHang();
+
+        }
+
+      
     }
 }
