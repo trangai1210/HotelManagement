@@ -10,7 +10,7 @@
             <PropertyRef Name="BookingID" />
           </Key>
           <Property Name="BookingID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="CustomerID" Type="int" />
+          <Property Name="CustomerID" Type="nvarchar" MaxLength="10" />
           <Property Name="BookingDate" Type="date" />
           <Property Name="CheckInDate" Type="date" />
           <Property Name="CheckOutDate" Type="date" />
@@ -29,7 +29,7 @@
           <Key>
             <PropertyRef Name="MaKH" />
           </Key>
-          <Property Name="MaKH" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MaKH" Type="nvarchar" MaxLength="10" Nullable="false" />
           <Property Name="TenKH" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="SDT" Type="nvarchar" MaxLength="20" />
           <Property Name="DiaChi" Type="nvarchar" MaxLength="200" />
@@ -338,9 +338,20 @@
             <End Role="RoomType" EntitySet="RoomTypes" />
             <End Role="Room" EntitySet="Rooms" />
           </AssociationSet>
+          <EntitySet Name="Services" EntityType="HotelManagementModel.Service" />
+          <EntitySet Name="Employees" EntityType="HotelManagementModel.Employee" />
+          <EntitySet Name="Roles" EntityType="HotelManagementModel.Role" />
+          <AssociationSet Name="FK__Employees__MaChu__08B54D69" Association="HotelManagementModel.FK__Employees__MaChu__08B54D69">
+            <End Role="Role" EntitySet="Roles" />
+            <End Role="Employee" EntitySet="Employees" />
+          </AssociationSet>
+          <EntitySet Name="EmployeeAccounts" EntityType="HotelManagementModel.EmployeeAccount" />
+          <AssociationSet Name="FK_Account_Employees" Association="HotelManagementModel.FK_Account_Employees">
+            <End Role="Employee" EntitySet="Employees" />
+            <End Role="EmployeeAccount" EntitySet="EmployeeAccounts" />
+          </AssociationSet>
           <EntitySet Name="Bookings" EntityType="HotelManagementModel.Booking" />
           <EntitySet Name="Customers" EntityType="HotelManagementModel.Customer" />
-          <EntitySet Name="Services" EntityType="HotelManagementModel.Service" />
           <AssociationSet Name="FK_Booking_Customer" Association="HotelManagementModel.FK_Booking_Customer">
             <End Role="Customer" EntitySet="Customers" />
             <End Role="Booking" EntitySet="Bookings" />
@@ -353,45 +364,7 @@
             <End Role="Booking" EntitySet="Bookings" />
             <End Role="Invoice" EntitySet="Invoices" />
           </AssociationSet>
-          <EntitySet Name="Employees" EntityType="HotelManagementModel.Employee" />
-          <EntitySet Name="Roles" EntityType="HotelManagementModel.Role" />
-          <AssociationSet Name="FK__Employees__MaChu__08B54D69" Association="HotelManagementModel.FK__Employees__MaChu__08B54D69">
-            <End Role="Role" EntitySet="Roles" />
-            <End Role="Employee" EntitySet="Employees" />
-          </AssociationSet>
-          <EntitySet Name="EmployeeAccounts" EntityType="HotelManagementModel.EmployeeAccount" />
-          <AssociationSet Name="FK_Account_Employees" Association="HotelManagementModel.FK_Account_Employees">
-            <End Role="Employee" EntitySet="Employees" />
-            <End Role="EmployeeAccount" EntitySet="EmployeeAccounts" />
-          </AssociationSet>
         </EntityContainer>
-        <EntityType Name="Booking">
-          <Key>
-            <PropertyRef Name="BookingID" />
-          </Key>
-          <Property Name="BookingID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CustomerID" Type="Int32" />
-          <Property Name="BookingDate" Type="DateTime" Precision="0" />
-          <Property Name="CheckInDate" Type="DateTime" Precision="0" />
-          <Property Name="CheckOutDate" Type="DateTime" Precision="0" />
-          <Property Name="Status" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Customer" Relationship="HotelManagementModel.FK_Booking_Customer" FromRole="Booking" ToRole="Customer" />
-          <NavigationProperty Name="BookingDetails" Relationship="HotelManagementModel.FK_BookingDetail_Booking" FromRole="Booking" ToRole="BookingDetail" />
-          <NavigationProperty Name="Invoices" Relationship="HotelManagementModel.FK_Invoice_Booking" FromRole="Booking" ToRole="Invoice" />
-        </EntityType>
-        <EntityType Name="Customer">
-          <Key>
-            <PropertyRef Name="MaKH" />
-          </Key>
-          <Property Name="MaKH" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="TenKH" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="SDT" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="DiaChi" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="CCCD" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="GioiTinh" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="QuocTich" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Bookings" Relationship="HotelManagementModel.FK_Booking_Customer" FromRole="Customer" ToRole="Booking" />
-        </EntityType>
         <EntityType Name="Service">
           <Key>
             <PropertyRef Name="ServiceId" />
@@ -402,42 +375,6 @@
           <Property Name="Unit" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Category" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
-        <Association Name="FK_Booking_Customer">
-          <End Type="HotelManagementModel.Customer" Role="Customer" Multiplicity="0..1" />
-          <End Type="HotelManagementModel.Booking" Role="Booking" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Customer">
-              <PropertyRef Name="MaKH" />
-            </Principal>
-            <Dependent Role="Booking">
-              <PropertyRef Name="CustomerID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_BookingDetail_Booking">
-          <End Type="HotelManagementModel.Booking" Role="Booking" Multiplicity="0..1" />
-          <End Type="HotelManagementModel.BookingDetail" Role="BookingDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Booking">
-              <PropertyRef Name="BookingID" />
-            </Principal>
-            <Dependent Role="BookingDetail">
-              <PropertyRef Name="BookingID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Invoice_Booking">
-          <End Type="HotelManagementModel.Booking" Role="Booking" Multiplicity="0..1" />
-          <End Type="HotelManagementModel.Invoice" Role="Invoice" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Booking">
-              <PropertyRef Name="BookingID" />
-            </Principal>
-            <Dependent Role="Invoice">
-              <PropertyRef Name="BookingID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="Employee">
           <Key>
             <PropertyRef Name="MaNV" />
@@ -499,6 +436,69 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Booking">
+          <Key>
+            <PropertyRef Name="BookingID" />
+          </Key>
+          <Property Name="BookingID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CustomerID" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="BookingDate" Type="DateTime" Precision="0" />
+          <Property Name="CheckInDate" Type="DateTime" Precision="0" />
+          <Property Name="CheckOutDate" Type="DateTime" Precision="0" />
+          <Property Name="Status" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Customer" Relationship="HotelManagementModel.FK_Booking_Customer" FromRole="Booking" ToRole="Customer" />
+          <NavigationProperty Name="BookingDetails" Relationship="HotelManagementModel.FK_BookingDetail_Booking" FromRole="Booking" ToRole="BookingDetail" />
+          <NavigationProperty Name="Invoices" Relationship="HotelManagementModel.FK_Invoice_Booking" FromRole="Booking" ToRole="Invoice" />
+        </EntityType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="MaKH" />
+          </Key>
+          <Property Name="MaKH" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="TenKH" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="SDT" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="DiaChi" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="CCCD" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="GioiTinh" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="QuocTich" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Bookings" Relationship="HotelManagementModel.FK_Booking_Customer" FromRole="Customer" ToRole="Booking" />
+        </EntityType>
+        <Association Name="FK_Booking_Customer">
+          <End Type="HotelManagementModel.Customer" Role="Customer" Multiplicity="0..1" />
+          <End Type="HotelManagementModel.Booking" Role="Booking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="MaKH" />
+            </Principal>
+            <Dependent Role="Booking">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BookingDetail_Booking">
+          <End Type="HotelManagementModel.Booking" Role="Booking" Multiplicity="0..1" />
+          <End Type="HotelManagementModel.BookingDetail" Role="BookingDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Booking">
+              <PropertyRef Name="BookingID" />
+            </Principal>
+            <Dependent Role="BookingDetail">
+              <PropertyRef Name="BookingID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Invoice_Booking">
+          <End Type="HotelManagementModel.Booking" Role="Booking" Multiplicity="0..1" />
+          <End Type="HotelManagementModel.Invoice" Role="Invoice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Booking">
+              <PropertyRef Name="BookingID" />
+            </Principal>
+            <Dependent Role="Invoice">
+              <PropertyRef Name="BookingID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -557,31 +557,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Bookings">
-            <EntityTypeMapping TypeName="HotelManagementModel.Booking">
-              <MappingFragment StoreEntitySet="Booking">
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="CheckOutDate" ColumnName="CheckOutDate" />
-                <ScalarProperty Name="CheckInDate" ColumnName="CheckInDate" />
-                <ScalarProperty Name="BookingDate" ColumnName="BookingDate" />
-                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
-                <ScalarProperty Name="BookingID" ColumnName="BookingID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Customers">
-            <EntityTypeMapping TypeName="HotelManagementModel.Customer">
-              <MappingFragment StoreEntitySet="Customer">
-                <ScalarProperty Name="QuocTich" ColumnName="QuocTich" />
-                <ScalarProperty Name="GioiTinh" ColumnName="GioiTinh" />
-                <ScalarProperty Name="CCCD" ColumnName="CCCD" />
-                <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
-                <ScalarProperty Name="SDT" ColumnName="SDT" />
-                <ScalarProperty Name="TenKH" ColumnName="TenKH" />
-                <ScalarProperty Name="MaKH" ColumnName="MaKH" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Services">
             <EntityTypeMapping TypeName="HotelManagementModel.Service">
               <MappingFragment StoreEntitySet="Service">
@@ -626,6 +601,31 @@
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="Username" ColumnName="Username" />
                 <ScalarProperty Name="AccountID" ColumnName="AccountID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Bookings">
+            <EntityTypeMapping TypeName="HotelManagementModel.Booking">
+              <MappingFragment StoreEntitySet="Booking">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="CheckOutDate" ColumnName="CheckOutDate" />
+                <ScalarProperty Name="CheckInDate" ColumnName="CheckInDate" />
+                <ScalarProperty Name="BookingDate" ColumnName="BookingDate" />
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="BookingID" ColumnName="BookingID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Customers">
+            <EntityTypeMapping TypeName="HotelManagementModel.Customer">
+              <MappingFragment StoreEntitySet="Customer">
+                <ScalarProperty Name="QuocTich" ColumnName="QuocTich" />
+                <ScalarProperty Name="GioiTinh" ColumnName="GioiTinh" />
+                <ScalarProperty Name="CCCD" ColumnName="CCCD" />
+                <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
+                <ScalarProperty Name="SDT" ColumnName="SDT" />
+                <ScalarProperty Name="TenKH" ColumnName="TenKH" />
+                <ScalarProperty Name="MaKH" ColumnName="MaKH" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

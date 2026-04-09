@@ -20,7 +20,7 @@ namespace HotelManagement.Models
             this.Bookings = new HashSet<Booking>();
         }
     
-        public int MaKH { get; set; }
+        public string MaKH { get; set; }
         public string TenKH { get; set; }
         public string SDT { get; set; }
         public string DiaChi { get; set; }

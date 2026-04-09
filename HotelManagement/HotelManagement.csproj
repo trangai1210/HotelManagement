@@ -252,7 +252,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Resources\thungrac.png" />
-    <None Include="Resources\Image1.bmp" />
     <Content Include="Resources\ksssss.jpg" />
     <Content Include="Resources\phongngu.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

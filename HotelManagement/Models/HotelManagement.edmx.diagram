@@ -12,17 +12,17 @@
         <EntityTypeShape EntityType="HotelManagementModel.sysdiagram" Width="1.5" PointX="7.75" PointY="3.75" IsExpanded="true" />
         <AssociationConnector Association="HotelManagementModel.FK_BookingDetail_Room" ManuallyRouted="false" />
         <AssociationConnector Association="HotelManagementModel.FK_Room_RoomType" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="HotelManagementModel.Booking" Width="1.5" PointX="3.375" PointY="3.5" />
-        <EntityTypeShape EntityType="HotelManagementModel.Customer" Width="1.5" PointX="1.125" PointY="3.625" />
         <EntityTypeShape EntityType="HotelManagementModel.Service" Width="1.5" PointX="0.75" PointY="0.75" />
-        <AssociationConnector Association="HotelManagementModel.FK_Booking_Customer" />
-        <AssociationConnector Association="HotelManagementModel.FK_BookingDetail_Booking" />
-        <AssociationConnector Association="HotelManagementModel.FK_Invoice_Booking" />
         <EntityTypeShape EntityType="HotelManagementModel.Employee" Width="1.5" PointX="9.625" PointY="7" />
         <EntityTypeShape EntityType="HotelManagementModel.Role" Width="1.5" PointX="7.375" PointY="7.875" />
         <AssociationConnector Association="HotelManagementModel.FK__Employees__MaChu__08B54D69" />
         <EntityTypeShape EntityType="HotelManagementModel.EmployeeAccount" Width="1.5" PointX="11.875" PointY="7.625" />
         <AssociationConnector Association="HotelManagementModel.FK_Account_Employees" />
+        <EntityTypeShape EntityType="HotelManagementModel.Booking" Width="1.5" PointX="3" PointY="3.5" />
+        <EntityTypeShape EntityType="HotelManagementModel.Customer" Width="1.5" PointX="0.75" PointY="3.625" />
+        <AssociationConnector Association="HotelManagementModel.FK_Booking_Customer" />
+        <AssociationConnector Association="HotelManagementModel.FK_BookingDetail_Booking" />
+        <AssociationConnector Association="HotelManagementModel.FK_Invoice_Booking" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

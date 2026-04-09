@@ -22,7 +22,7 @@ namespace HotelManagement.Models
         }
     
         public int BookingID { get; set; }
-        public Nullable<int> CustomerID { get; set; }
+        public string CustomerID { get; set; }
         public Nullable<System.DateTime> BookingDate { get; set; }
         public Nullable<System.DateTime> CheckInDate { get; set; }
         public Nullable<System.DateTime> CheckOutDate { get; set; }
