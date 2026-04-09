@@ -108,7 +108,7 @@
             this.panelThongTin.Controls.Add(this.cbGioiTinh);
             this.panelThongTin.Controls.Add(this.label2);
             this.panelThongTin.Controls.Add(this.txtTenKH);
-            this.panelThongTin.Location = new System.Drawing.Point(173, 116);
+            this.panelThongTin.Location = new System.Drawing.Point(67, 97);
             this.panelThongTin.Name = "panelThongTin";
             this.panelThongTin.Size = new System.Drawing.Size(688, 747);
             this.panelThongTin.TabIndex = 1;
@@ -485,7 +485,7 @@
             this.colXoa});
             this.dataKH.EnableHeadersVisualStyles = false;
             this.dataKH.GridColor = System.Drawing.Color.LightGray;
-            this.dataKH.Location = new System.Drawing.Point(112, 116);
+            this.dataKH.Location = new System.Drawing.Point(6, 97);
             this.dataKH.Name = "dataKH";
             this.dataKH.RowHeadersVisible = false;
             this.dataKH.RowHeadersWidth = 62;

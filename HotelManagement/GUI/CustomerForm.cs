@@ -384,12 +384,12 @@ namespace HotelManagement.GUI
                 panelSuaKH.Visible = true;
                 panelSuaKH.BringToFront();
 
-                txtTenSua.Text = dataKH.Rows[e.RowIndex].Cells[0].Value.ToString();
-                txtCccdSua.Text = dataKH.Rows[e.RowIndex].Cells[1].Value.ToString();
-                txtSDTSua.Text = dataKH.Rows[e.RowIndex].Cells[2].Value.ToString();
-                txtDiaChiSua.Text = dataKH.Rows[e.RowIndex].Cells[3].Value.ToString();
-                cbGioiTinhSua.Text = dataKH.Rows[e.RowIndex].Cells[4].Value.ToString();
-                txtQuocTichSua.Text = dataKH.Rows[e.RowIndex].Cells[5].Value.ToString();
+                txtTenSua.Text = dataKH.Rows[e.RowIndex].Cells[1].Value.ToString();
+                txtCccdSua.Text = dataKH.Rows[e.RowIndex].Cells[2].Value.ToString();
+                txtSDTSua.Text = dataKH.Rows[e.RowIndex].Cells[3].Value.ToString();
+                txtDiaChiSua.Text = dataKH.Rows[e.RowIndex].Cells[4].Value.ToString();
+                cbGioiTinhSua.Text = dataKH.Rows[e.RowIndex].Cells[5].Value.ToString();
+                txtQuocTichSua.Text = dataKH.Rows[e.RowIndex].Cells[6].Value.ToString();
                 //LoadKhachHang();
             }
         }
