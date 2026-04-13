@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label1 = new System.Windows.Forms.Label();
             this.panelThongTin = new System.Windows.Forms.Panel();
             this.panelSuaKH = new System.Windows.Forms.Panel();
@@ -64,6 +64,7 @@
             this.btThem = new System.Windows.Forms.Button();
             this.txtTim = new System.Windows.Forms.TextBox();
             this.dataKH = new System.Windows.Forms.DataGridView();
+            this.colMaKH = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colTen = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colCCCD = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colSDT = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -107,7 +108,7 @@
             this.panelThongTin.Controls.Add(this.cbGioiTinh);
             this.panelThongTin.Controls.Add(this.label2);
             this.panelThongTin.Controls.Add(this.txtTenKH);
-            this.panelThongTin.Location = new System.Drawing.Point(173, 116);
+            this.panelThongTin.Location = new System.Drawing.Point(67, 97);
             this.panelThongTin.Name = "panelThongTin";
             this.panelThongTin.Size = new System.Drawing.Size(688, 747);
             this.panelThongTin.TabIndex = 1;
@@ -463,16 +464,17 @@
             // dataKH
             // 
             this.dataKH.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.DarkBlue;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataKH.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.DarkBlue;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataKH.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dataKH.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataKH.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.colMaKH,
             this.colTen,
             this.colCCCD,
             this.colSDT,
@@ -483,7 +485,7 @@
             this.colXoa});
             this.dataKH.EnableHeadersVisualStyles = false;
             this.dataKH.GridColor = System.Drawing.Color.LightGray;
-            this.dataKH.Location = new System.Drawing.Point(112, 116);
+            this.dataKH.Location = new System.Drawing.Point(6, 97);
             this.dataKH.Name = "dataKH";
             this.dataKH.RowHeadersVisible = false;
             this.dataKH.RowHeadersWidth = 62;
@@ -491,6 +493,13 @@
             this.dataKH.Size = new System.Drawing.Size(1344, 771);
             this.dataKH.TabIndex = 17;
             this.dataKH.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataKH_CellClick);
+            // 
+            // colMaKH
+            // 
+            this.colMaKH.HeaderText = "Mã KH";
+            this.colMaKH.MinimumWidth = 8;
+            this.colMaKH.Name = "colMaKH";
+            this.colMaKH.Width = 150;
             // 
             // colTen
             // 
@@ -611,6 +620,7 @@
         private System.Windows.Forms.ComboBox cbGioiTinhSua;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.TextBox txtTenSua;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colMaKH;
         private System.Windows.Forms.DataGridViewTextBoxColumn colTen;
         private System.Windows.Forms.DataGridViewTextBoxColumn colCCCD;
         private System.Windows.Forms.DataGridViewTextBoxColumn colSDT;

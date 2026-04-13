@@ -29,7 +29,7 @@ namespace HotelManagement.GUI
             {
                 conn.Open();
 
-                string query = "SELECT TenKH,GioiTinh,CCCD,SDT,DiaChi,QuocTich FROM Customer";
+                string query = "SELECT MaKH,TenKH,GioiTinh,CCCD,SDT,DiaChi,QuocTich FROM Customer";
 
                 SqlCommand cmd = new SqlCommand(query, conn);
                 SqlDataReader reader = cmd.ExecuteReader();
@@ -37,6 +37,7 @@ namespace HotelManagement.GUI
                 while (reader.Read())
                 {
                     dataKH.Rows.Add(
+                        reader["MaKH"].ToString(),
                         reader["TenKH"].ToString(),
                         reader["CCCD"].ToString(),
                         reader["SDT"].ToString(),
@@ -147,7 +148,19 @@ namespace HotelManagement.GUI
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
+                string getID = "SELECT TOP 1 MaKH FROM Customer ORDER BY MaKH DESC";
 
+                SqlCommand getCmd = new SqlCommand(getID, conn);
+                object result = getCmd.ExecuteScalar();
+
+                string newMaKH = "KH001";
+
+                if (result != null)
+                {
+                    string lastID = result.ToString(); // KH005
+                    int num = int.Parse(lastID.Substring(2)) + 1;
+                    newMaKH = "KH" + num.ToString("D3");
+                }
                 // kiểm tra CCCD trùng
                 string check = "SELECT COUNT(*) FROM Customer WHERE CCCD=@cccd";
 
@@ -164,12 +177,13 @@ namespace HotelManagement.GUI
 
                 // thêm khách hàng
                 string query = @"INSERT INTO Customer
-                                (TenKH,GioiTinh,CCCD,SDT,DiaChi,QuocTich)
+                                (MaKH,TenKH,GioiTinh,CCCD,SDT,DiaChi,QuocTich)
                                 VALUES
-                                (@TenKH,@GioiTinh,@CCCD,@SDT,@DiaChi,@QuocTich)";
+                                (@MaKH,@TenKH,@GioiTinh,@CCCD,@SDT,@DiaChi,@QuocTich)";
 
                 SqlCommand cmd = new SqlCommand(query, conn);
 
+                cmd.Parameters.AddWithValue("@MaKH", newMaKH);
                 cmd.Parameters.AddWithValue("@TenKH", txtTenKH.Text);
                 cmd.Parameters.AddWithValue("@GioiTinh", cbGioiTinh.Text);
                 cmd.Parameters.AddWithValue("@CCCD", txtCccd.Text);
@@ -254,7 +268,8 @@ namespace HotelManagement.GUI
         }
         void TimKhachHang()
         {
-            if (txtTim.Text.Trim() == "")
+            // Nếu ô tìm kiếm trống hoặc đang hiện placeholder thì load lại toàn bộ
+            if (string.IsNullOrWhiteSpace(txtTim.Text) || txtTim.ForeColor == Color.Gray)
             {
                 LoadKhachHang();
                 return;
@@ -266,20 +281,24 @@ namespace HotelManagement.GUI
             {
                 conn.Open();
 
-                string query = @"SELECT TenKH,GioiTinh,CCCD,SDT,DiaChi,QuocTich
+                // Sửa câu truy vấn: Thêm điều kiện OR MaKH LIKE @tukhoa
+                // SELECT thêm MaKH để hiển thị đúng cột
+                string query = @"SELECT MaKH, TenKH, GioiTinh, CCCD, SDT, DiaChi, QuocTich
                          FROM Customer
-                         WHERE TenKH LIKE @ten";
+                         WHERE TenKH LIKE @tukhoa OR MaKH LIKE @tukhoa";
 
                 SqlCommand cmd = new SqlCommand(query, conn);
-                cmd.Parameters.AddWithValue("@ten", "%" + txtTim.Text + "%");
-                // đọc lại toàn bộ data bên bảng customer
+                // Dùng chung 1 tham số @tukhoa cho cả 2 điều kiện
+                cmd.Parameters.AddWithValue("@tukhoa", "%" + txtTim.Text.Trim() + "%");
+
                 SqlDataReader reader = cmd.ExecuteReader();
 
                 while (reader.Read())
                 {
                     dataKH.Rows.Add(
+                        reader["MaKH"].ToString(),
                         reader["TenKH"].ToString(),
-                        reader["CCCD"].ToString(),
+                        reader["CCCD"].ToString(), // Lưu ý thứ tự cột khớp với DataGridView của bạn
                         reader["SDT"].ToString(),
                         reader["DiaChi"].ToString(),
                         reader["GioiTinh"].ToString(),
@@ -365,12 +384,12 @@ namespace HotelManagement.GUI
                 panelSuaKH.Visible = true;
                 panelSuaKH.BringToFront();
 
-                txtTenSua.Text = dataKH.Rows[e.RowIndex].Cells[0].Value.ToString();
-                txtCccdSua.Text = dataKH.Rows[e.RowIndex].Cells[1].Value.ToString();
-                txtSDTSua.Text = dataKH.Rows[e.RowIndex].Cells[2].Value.ToString();
-                txtDiaChiSua.Text = dataKH.Rows[e.RowIndex].Cells[3].Value.ToString();
-                cbGioiTinhSua.Text = dataKH.Rows[e.RowIndex].Cells[4].Value.ToString();
-                txtQuocTichSua.Text = dataKH.Rows[e.RowIndex].Cells[5].Value.ToString();
+                txtTenSua.Text = dataKH.Rows[e.RowIndex].Cells[1].Value.ToString();
+                txtCccdSua.Text = dataKH.Rows[e.RowIndex].Cells[2].Value.ToString();
+                txtSDTSua.Text = dataKH.Rows[e.RowIndex].Cells[3].Value.ToString();
+                txtDiaChiSua.Text = dataKH.Rows[e.RowIndex].Cells[4].Value.ToString();
+                cbGioiTinhSua.Text = dataKH.Rows[e.RowIndex].Cells[5].Value.ToString();
+                txtQuocTichSua.Text = dataKH.Rows[e.RowIndex].Cells[6].Value.ToString();
                 //LoadKhachHang();
             }
         }
