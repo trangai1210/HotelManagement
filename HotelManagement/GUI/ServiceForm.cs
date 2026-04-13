@@ -164,7 +164,7 @@ namespace HotelManagement.GUI
             {
                 MessageBox.Show("Vui lòng chọn dịch vụ cần sửa!", "Cảnh báo");
                 return;
-            }
+            }// nhi
 
             if (string.IsNullOrWhiteSpace(txtTenDV.Text))
             {
