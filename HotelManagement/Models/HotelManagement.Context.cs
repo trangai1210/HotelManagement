@@ -36,5 +36,8 @@ namespace HotelManagement.Models
         public virtual DbSet<EmployeeAccount> EmployeeAccounts { get; set; }
         public virtual DbSet<Booking> Bookings { get; set; }
         public virtual DbSet<Customer> Customers { get; set; }
+        public virtual DbSet<BangLuong> BangLuongs { get; set; }
+        public virtual DbSet<CaLamViec> CaLamViecs { get; set; }
+        public virtual DbSet<ChamCong> ChamCongs { get; set; }
     }
 }

@@ -5,6 +5,20 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="HotelManagementModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="BangLuong">
+          <Key>
+            <PropertyRef Name="MaPhieu" />
+          </Key>
+          <Property Name="MaPhieu" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MaNV" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="ThangNam" Type="varchar" MaxLength="7" Nullable="false" />
+          <Property Name="TongGioLam" Type="float" />
+          <Property Name="LuongTheoGio" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="TienThuong" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="TienPhat" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="TongTien" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="NgayLapPhieu" Type="datetime" />
+        </EntityType>
         <EntityType Name="Booking">
           <Key>
             <PropertyRef Name="BookingID" />
@@ -24,6 +38,28 @@
           <Property Name="BookingID" Type="int" />
           <Property Name="RoomID" Type="int" />
           <Property Name="Price" Type="float" />
+        </EntityType>
+        <EntityType Name="CaLamViec">
+          <Key>
+            <PropertyRef Name="MaCa" />
+          </Key>
+          <Property Name="MaCa" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TenCa" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="GioBatDau" Type="time" Precision="7" Nullable="false" />
+          <Property Name="GioKetThuc" Type="time" Precision="7" Nullable="false" />
+          <Property Name="HeSoLuong" Type="float" />
+        </EntityType>
+        <EntityType Name="ChamCong">
+          <Key>
+            <PropertyRef Name="MaCC" />
+          </Key>
+          <Property Name="MaCC" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MaNV" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="NgayCC" Type="date" Nullable="false" />
+          <Property Name="GioVao" Type="datetime" />
+          <Property Name="GioRa" Type="datetime" />
+          <Property Name="MaCa" Type="int" />
+          <Property Name="TrangThai" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="Customer">
           <Key>
@@ -78,6 +114,7 @@
           <Property Name="MaChucVu" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="TenChucVu" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="MoTa" Type="nvarchar" MaxLength="255" />
+          <Property Name="LuongMoiGio" Type="decimal" Precision="18" Scale="0" />
         </EntityType>
         <EntityType Name="Room">
           <Key>
@@ -142,6 +179,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_BangLuong_NV">
+          <End Role="Employees" Type="Self.Employees" Multiplicity="1" />
+          <End Role="BangLuong" Type="Self.BangLuong" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="MaNV" />
+            </Principal>
+            <Dependent Role="BangLuong">
+              <PropertyRef Name="MaNV" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Booking_Customer">
           <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
           <End Role="Booking" Type="Self.Booking" Multiplicity="*" />
@@ -178,6 +227,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_ChamCong_Ca">
+          <End Role="CaLamViec" Type="Self.CaLamViec" Multiplicity="0..1" />
+          <End Role="ChamCong" Type="Self.ChamCong" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CaLamViec">
+              <PropertyRef Name="MaCa" />
+            </Principal>
+            <Dependent Role="ChamCong">
+              <PropertyRef Name="MaCa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ChamCong_NV">
+          <End Role="Employees" Type="Self.Employees" Multiplicity="1" />
+          <End Role="ChamCong" Type="Self.ChamCong" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="MaNV" />
+            </Principal>
+            <Dependent Role="ChamCong">
+              <PropertyRef Name="MaNV" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Invoice_Booking">
           <End Role="Booking" Type="Self.Booking" Multiplicity="0..1" />
           <End Role="Invoice" Type="Self.Invoice" Multiplicity="*" />
@@ -203,8 +276,11 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="HotelManagementModelStoreContainer">
+          <EntitySet Name="BangLuong" EntityType="Self.BangLuong" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Booking" EntityType="Self.Booking" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BookingDetail" EntityType="Self.BookingDetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CaLamViec" EntityType="Self.CaLamViec" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ChamCong" EntityType="Self.ChamCong" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EmployeeAccount" EntityType="Self.EmployeeAccount" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Employees" EntityType="Self.Employees" Schema="dbo" store:Type="Tables" />
@@ -222,6 +298,10 @@
             <End Role="Employees" EntitySet="Employees" />
             <End Role="EmployeeAccount" EntitySet="EmployeeAccount" />
           </AssociationSet>
+          <AssociationSet Name="FK_BangLuong_NV" Association="Self.FK_BangLuong_NV">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="BangLuong" EntitySet="BangLuong" />
+          </AssociationSet>
           <AssociationSet Name="FK_Booking_Customer" Association="Self.FK_Booking_Customer">
             <End Role="Customer" EntitySet="Customer" />
             <End Role="Booking" EntitySet="Booking" />
@@ -233,6 +313,14 @@
           <AssociationSet Name="FK_BookingDetail_Room" Association="Self.FK_BookingDetail_Room">
             <End Role="Room" EntitySet="Room" />
             <End Role="BookingDetail" EntitySet="BookingDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ChamCong_Ca" Association="Self.FK_ChamCong_Ca">
+            <End Role="CaLamViec" EntitySet="CaLamViec" />
+            <End Role="ChamCong" EntitySet="ChamCong" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ChamCong_NV" Association="Self.FK_ChamCong_NV">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="ChamCong" EntitySet="ChamCong" />
           </AssociationSet>
           <AssociationSet Name="FK_Invoice_Booking" Association="Self.FK_Invoice_Booking">
             <End Role="Booking" EntitySet="Booking" />
@@ -364,6 +452,21 @@
             <End Role="Booking" EntitySet="Bookings" />
             <End Role="Invoice" EntitySet="Invoices" />
           </AssociationSet>
+          <EntitySet Name="BangLuongs" EntityType="HotelManagementModel.BangLuong" />
+          <EntitySet Name="CaLamViecs" EntityType="HotelManagementModel.CaLamViec" />
+          <EntitySet Name="ChamCongs" EntityType="HotelManagementModel.ChamCong" />
+          <AssociationSet Name="FK_BangLuong_NV" Association="HotelManagementModel.FK_BangLuong_NV">
+            <End Role="Employee" EntitySet="Employees" />
+            <End Role="BangLuong" EntitySet="BangLuongs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ChamCong_Ca" Association="HotelManagementModel.FK_ChamCong_Ca">
+            <End Role="CaLamViec" EntitySet="CaLamViecs" />
+            <End Role="ChamCong" EntitySet="ChamCongs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ChamCong_NV" Association="HotelManagementModel.FK_ChamCong_NV">
+            <End Role="Employee" EntitySet="Employees" />
+            <End Role="ChamCong" EntitySet="ChamCongs" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Service">
           <Key>
@@ -391,6 +494,8 @@
           <Property Name="TrangThai" Type="Boolean" />
           <NavigationProperty Name="Role" Relationship="HotelManagementModel.FK__Employees__MaChu__08B54D69" FromRole="Employee" ToRole="Role" />
           <NavigationProperty Name="EmployeeAccounts" Relationship="HotelManagementModel.FK_Account_Employees" FromRole="Employee" ToRole="EmployeeAccount" />
+          <NavigationProperty Name="BangLuongs" Relationship="HotelManagementModel.FK_BangLuong_NV" FromRole="Employee" ToRole="BangLuong" />
+          <NavigationProperty Name="ChamCongs" Relationship="HotelManagementModel.FK_ChamCong_NV" FromRole="Employee" ToRole="ChamCong" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -400,6 +505,7 @@
           <Property Name="TenChucVu" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="MoTa" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Employees" Relationship="HotelManagementModel.FK__Employees__MaChu__08B54D69" FromRole="Role" ToRole="Employee" />
+          <Property Name="LuongMoiGio" Type="Decimal" Precision="18" Scale="0" />
         </EntityType>
         <Association Name="FK__Employees__MaChu__08B54D69">
           <End Type="HotelManagementModel.Role" Role="Role" Multiplicity="0..1" />
@@ -499,6 +605,82 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="BangLuong">
+          <Key>
+            <PropertyRef Name="MaPhieu" />
+          </Key>
+          <Property Name="MaPhieu" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MaNV" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="ThangNam" Type="String" Nullable="false" MaxLength="7" FixedLength="false" Unicode="false" />
+          <Property Name="TongGioLam" Type="Double" />
+          <Property Name="LuongTheoGio" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="TienThuong" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="TienPhat" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="TongTien" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <NavigationProperty Name="Employee" Relationship="HotelManagementModel.FK_BangLuong_NV" FromRole="BangLuong" ToRole="Employee" />
+          <Property Name="NgayLapPhieu" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="CaLamViec">
+          <Key>
+            <PropertyRef Name="MaCa" />
+          </Key>
+          <Property Name="MaCa" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TenCa" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="GioBatDau" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="GioKetThuc" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="HeSoLuong" Type="Double" />
+          <NavigationProperty Name="ChamCongs" Relationship="HotelManagementModel.FK_ChamCong_Ca" FromRole="CaLamViec" ToRole="ChamCong" />
+        </EntityType>
+        <EntityType Name="ChamCong">
+          <Key>
+            <PropertyRef Name="MaCC" />
+          </Key>
+          <Property Name="MaCC" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MaNV" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="NgayCC" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="GioVao" Type="DateTime" Precision="3" />
+          <Property Name="GioRa" Type="DateTime" Precision="3" />
+          <Property Name="MaCa" Type="Int32" />
+          <Property Name="TrangThai" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="CaLamViec" Relationship="HotelManagementModel.FK_ChamCong_Ca" FromRole="ChamCong" ToRole="CaLamViec" />
+          <NavigationProperty Name="Employee" Relationship="HotelManagementModel.FK_ChamCong_NV" FromRole="ChamCong" ToRole="Employee" />
+        </EntityType>
+        <Association Name="FK_BangLuong_NV">
+          <End Type="HotelManagementModel.Employee" Role="Employee" Multiplicity="1" />
+          <End Type="HotelManagementModel.BangLuong" Role="BangLuong" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="MaNV" />
+            </Principal>
+            <Dependent Role="BangLuong">
+              <PropertyRef Name="MaNV" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ChamCong_Ca">
+          <End Type="HotelManagementModel.CaLamViec" Role="CaLamViec" Multiplicity="0..1" />
+          <End Type="HotelManagementModel.ChamCong" Role="ChamCong" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CaLamViec">
+              <PropertyRef Name="MaCa" />
+            </Principal>
+            <Dependent Role="ChamCong">
+              <PropertyRef Name="MaCa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ChamCong_NV">
+          <End Type="HotelManagementModel.Employee" Role="Employee" Multiplicity="1" />
+          <End Type="HotelManagementModel.ChamCong" Role="ChamCong" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="MaNV" />
+            </Principal>
+            <Dependent Role="ChamCong">
+              <PropertyRef Name="MaNV" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -587,6 +769,7 @@
           <EntitySetMapping Name="Roles">
             <EntityTypeMapping TypeName="HotelManagementModel.Role">
               <MappingFragment StoreEntitySet="Role">
+                <ScalarProperty Name="LuongMoiGio" ColumnName="LuongMoiGio" />
                 <ScalarProperty Name="MoTa" ColumnName="MoTa" />
                 <ScalarProperty Name="TenChucVu" ColumnName="TenChucVu" />
                 <ScalarProperty Name="MaChucVu" ColumnName="MaChucVu" />
@@ -626,6 +809,45 @@
                 <ScalarProperty Name="SDT" ColumnName="SDT" />
                 <ScalarProperty Name="TenKH" ColumnName="TenKH" />
                 <ScalarProperty Name="MaKH" ColumnName="MaKH" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BangLuongs">
+            <EntityTypeMapping TypeName="HotelManagementModel.BangLuong">
+              <MappingFragment StoreEntitySet="BangLuong">
+                <ScalarProperty Name="NgayLapPhieu" ColumnName="NgayLapPhieu" />
+                <ScalarProperty Name="TongTien" ColumnName="TongTien" />
+                <ScalarProperty Name="TienPhat" ColumnName="TienPhat" />
+                <ScalarProperty Name="TienThuong" ColumnName="TienThuong" />
+                <ScalarProperty Name="LuongTheoGio" ColumnName="LuongTheoGio" />
+                <ScalarProperty Name="TongGioLam" ColumnName="TongGioLam" />
+                <ScalarProperty Name="ThangNam" ColumnName="ThangNam" />
+                <ScalarProperty Name="MaNV" ColumnName="MaNV" />
+                <ScalarProperty Name="MaPhieu" ColumnName="MaPhieu" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CaLamViecs">
+            <EntityTypeMapping TypeName="HotelManagementModel.CaLamViec">
+              <MappingFragment StoreEntitySet="CaLamViec">
+                <ScalarProperty Name="HeSoLuong" ColumnName="HeSoLuong" />
+                <ScalarProperty Name="GioKetThuc" ColumnName="GioKetThuc" />
+                <ScalarProperty Name="GioBatDau" ColumnName="GioBatDau" />
+                <ScalarProperty Name="TenCa" ColumnName="TenCa" />
+                <ScalarProperty Name="MaCa" ColumnName="MaCa" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ChamCongs">
+            <EntityTypeMapping TypeName="HotelManagementModel.ChamCong">
+              <MappingFragment StoreEntitySet="ChamCong">
+                <ScalarProperty Name="TrangThai" ColumnName="TrangThai" />
+                <ScalarProperty Name="MaCa" ColumnName="MaCa" />
+                <ScalarProperty Name="GioRa" ColumnName="GioRa" />
+                <ScalarProperty Name="GioVao" ColumnName="GioVao" />
+                <ScalarProperty Name="NgayCC" ColumnName="NgayCC" />
+                <ScalarProperty Name="MaNV" ColumnName="MaNV" />
+                <ScalarProperty Name="MaCC" ColumnName="MaCC" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

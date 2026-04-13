@@ -12,20 +12,21 @@ namespace HotelManagement.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Role
+    public partial class CaLamViec
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Role()
+        public CaLamViec()
         {
-            this.Employees = new HashSet<Employee>();
+            this.ChamCongs = new HashSet<ChamCong>();
         }
     
-        public int MaChucVu { get; set; }
-        public string TenChucVu { get; set; }
-        public string MoTa { get; set; }
-        public Nullable<decimal> LuongMoiGio { get; set; }
+        public int MaCa { get; set; }
+        public string TenCa { get; set; }
+        public System.TimeSpan GioBatDau { get; set; }
+        public System.TimeSpan GioKetThuc { get; set; }
+        public Nullable<double> HeSoLuong { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Employee> Employees { get; set; }
+        public virtual ICollection<ChamCong> ChamCongs { get; set; }
     }
 }

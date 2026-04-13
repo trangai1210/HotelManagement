@@ -23,6 +23,12 @@
         <AssociationConnector Association="HotelManagementModel.FK_Booking_Customer" />
         <AssociationConnector Association="HotelManagementModel.FK_BookingDetail_Booking" />
         <AssociationConnector Association="HotelManagementModel.FK_Invoice_Booking" />
+        <EntityTypeShape EntityType="HotelManagementModel.BangLuong" Width="1.5" PointX="11.875" PointY="10.875" />
+        <EntityTypeShape EntityType="HotelManagementModel.CaLamViec" Width="1.5" PointX="12.625" PointY="3.75" />
+        <EntityTypeShape EntityType="HotelManagementModel.ChamCong" Width="1.5" PointX="14.875" PointY="7.5" />
+        <AssociationConnector Association="HotelManagementModel.FK_BangLuong_NV" />
+        <AssociationConnector Association="HotelManagementModel.FK_ChamCong_Ca" />
+        <AssociationConnector Association="HotelManagementModel.FK_ChamCong_NV" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

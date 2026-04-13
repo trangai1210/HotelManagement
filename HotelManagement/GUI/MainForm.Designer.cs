@@ -41,7 +41,11 @@
             this.panelTop = new System.Windows.Forms.Panel();
             this.btnMenu = new System.Windows.Forms.Button();
             this.panelContent = new System.Windows.Forms.Panel();
+            this.btCheckout = new System.Windows.Forms.Button();
+            this.btCheckin = new System.Windows.Forms.Button();
             this.slideTimer = new System.Windows.Forms.Timer(this.components);
+            this.cbbCaLamViec = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureSlide)).BeginInit();
             this.panelTop.SuspendLayout();
@@ -76,6 +80,7 @@
             this.btQLNhanVien.TabIndex = 6;
             this.btQLNhanVien.Text = "QL Nhân Viên";
             this.btQLNhanVien.UseVisualStyleBackColor = false;
+            this.btQLNhanVien.Click += new System.EventHandler(this.btQLNhanVien_Click);
             // 
             // btDichVu
             // 
@@ -171,7 +176,11 @@
             // panelTop
             // 
             this.panelTop.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(28)))), ((int)(((byte)(28)))));
+            this.panelTop.Controls.Add(this.label1);
+            this.panelTop.Controls.Add(this.cbbCaLamViec);
+            this.panelTop.Controls.Add(this.btCheckout);
             this.panelTop.Controls.Add(this.btnMenu);
+            this.panelTop.Controls.Add(this.btCheckin);
             this.panelTop.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelTop.Location = new System.Drawing.Point(0, 0);
             this.panelTop.Name = "panelTop";
@@ -201,14 +210,52 @@
             this.panelContent.Size = new System.Drawing.Size(1318, 589);
             this.panelContent.TabIndex = 1;
             // 
+            // btCheckout
+            // 
+            this.btCheckout.Location = new System.Drawing.Point(1178, 6);
+            this.btCheckout.Name = "btCheckout";
+            this.btCheckout.Size = new System.Drawing.Size(112, 28);
+            this.btCheckout.TabIndex = 0;
+            this.btCheckout.Text = "Check out";
+            this.btCheckout.UseVisualStyleBackColor = true;
+            this.btCheckout.Click += new System.EventHandler(this.btCheckout_Click);
+            // 
+            // btCheckin
+            // 
+            this.btCheckin.Location = new System.Drawing.Point(1047, 5);
+            this.btCheckin.Name = "btCheckin";
+            this.btCheckin.Size = new System.Drawing.Size(105, 29);
+            this.btCheckin.TabIndex = 0;
+            this.btCheckin.Text = "Check in";
+            this.btCheckin.UseVisualStyleBackColor = true;
+            this.btCheckin.Click += new System.EventHandler(this.btCheckin_Click);
+            // 
             // slideTimer
             // 
             this.slideTimer.Interval = 3000;
             this.slideTimer.Tick += new System.EventHandler(this.slideTimer_Tick);
             // 
+            // cbbCaLamViec
+            // 
+            this.cbbCaLamViec.FormattingEnabled = true;
+            this.cbbCaLamViec.Location = new System.Drawing.Point(926, 8);
+            this.cbbCaLamViec.Name = "cbbCaLamViec";
+            this.cbbCaLamViec.Size = new System.Drawing.Size(96, 25);
+            this.cbbCaLamViec.TabIndex = 1;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.label1.Location = new System.Drawing.Point(837, 11);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(83, 17);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "Chọn ca làm:";
+            // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 21F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(22)))), ((int)(((byte)(22)))));
             this.ClientSize = new System.Drawing.Size(1318, 630);
@@ -226,6 +273,7 @@
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureSlide)).EndInit();
             this.panelTop.ResumeLayout(false);
+            this.panelTop.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -245,5 +293,9 @@
         private System.Windows.Forms.Button btnMenu;
         private System.Windows.Forms.Button btDichVu;
         private System.Windows.Forms.Button btQLNhanVien;
+        private System.Windows.Forms.Button btCheckin;
+        private System.Windows.Forms.Button btCheckout;
+        private System.Windows.Forms.ComboBox cbbCaLamViec;
+        private System.Windows.Forms.Label label1;
     }
 }

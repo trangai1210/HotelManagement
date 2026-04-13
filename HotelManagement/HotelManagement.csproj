@@ -120,10 +120,19 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>HotelManagementDataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="Models\BangLuong.cs">
+      <DependentUpon>HotelManagement.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Booking.cs">
       <DependentUpon>HotelManagement.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\BookingDetail.cs">
+      <DependentUpon>HotelManagement.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CaLamViec.cs">
+      <DependentUpon>HotelManagement.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ChamCong.cs">
       <DependentUpon>HotelManagement.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Customer.cs">

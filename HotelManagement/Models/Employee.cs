@@ -18,6 +18,8 @@ namespace HotelManagement.Models
         public Employee()
         {
             this.EmployeeAccounts = new HashSet<EmployeeAccount>();
+            this.BangLuongs = new HashSet<BangLuong>();
+            this.ChamCongs = new HashSet<ChamCong>();
         }
     
         public string MaNV { get; set; }
@@ -34,5 +36,9 @@ namespace HotelManagement.Models
         public virtual Role Role { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<EmployeeAccount> EmployeeAccounts { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<BangLuong> BangLuongs { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ChamCong> ChamCongs { get; set; }
     }
 }

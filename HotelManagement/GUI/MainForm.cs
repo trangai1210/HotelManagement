@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HotelManagement.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -16,6 +17,11 @@ namespace HotelManagement.GUI
 {
     public partial class MainForm : Form
     {
+        //Biến toàn cục lưu trữ quyền của người vưaf đăng nhập
+        private string quyenHanHienTai = "";
+        private string usernameHienTai = "";
+
+
         bool menuOpen = false;
 
         int index = 0;
@@ -30,9 +36,11 @@ namespace HotelManagement.GUI
             Properties.Resources.hoboi
         };
 
-        public MainForm()
+        public MainForm(string quyenHanHienTai, string usernameHienTai)
         {
             InitializeComponent();
+            this.quyenHanHienTai = quyenHanHienTai;
+            this.usernameHienTai = usernameHienTai;
         }
 
         private void StyleButton(Button btn)
@@ -61,6 +69,21 @@ namespace HotelManagement.GUI
         // Khi form load
         private void MainForm_Load(object sender, EventArgs e)
         {
+            if (quyenHanHienTai == "Lễ tân") // (Lưu ý: Chữ này phải khớp 100% với chữ bạn lưu trong SQL)
+            {
+                // 1. Giấu nút Quản lý Nhân sự / Phân quyền
+                btQLNhanVien.Visible = false; // Nhớ đổi tên btn này thành tên thật của bạn nhé
+
+                // 2. Giấu nút Xem báo cáo Doanh thu
+                btReport.Visible = false;
+
+                
+            }
+            else if (quyenHanHienTai == "Quản lý" || quyenHanHienTai == "Admin")
+            {
+                // Là Quản lý thì không bị giấu gì cả, full quyền!
+            }
+
             panelContent.AutoScroll = true; // bật scroll
             // Ẩn menu ban đầu
             panel1.Visible = false;
@@ -168,6 +191,7 @@ namespace HotelManagement.GUI
 
             panelTop.BringToFront();
             panel1.BringToFront();
+            LoadCaLamViec();
 
         }
 
@@ -277,6 +301,107 @@ namespace HotelManagement.GUI
             }
         }
 
+        private void btQLNhanVien_Click(object sender, EventArgs e)
+        {
+            OpenChildForm(new QLNhanVienForm());
+        }
+
+
+
+        //=======CHẤM CÔNG ========
+        private string LayMaNhanVienHienTai()
+        {
+            using (HotelManagementEntities db = new HotelManagementEntities())
+            {
+                var acc = db.EmployeeAccounts.FirstOrDefault(a => a.Username == this.usernameHienTai);
+                return acc != null ? acc.MaNV : "";
+            }
+        }
+
+        private void btCheckin_Click(object sender, EventArgs e)
+        {
+            string maNV = LayMaNhanVienHienTai();
+            if (maNV == "") return;
+            //// Bắt lỗi nếu quên chưa chọn Ca
+            if (cbbCaLamViec.SelectedValue == null)
+            {
+                MessageBox.Show("Vui lòng chọn Ca làm việc trước khi Check-in!", "Nhắc nhở", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            using (HotelManagementEntities db = new HotelManagementEntities())
+            {
+                DateTime homNay = DateTime.Now.Date;
+               
+                // kiểm tra hôm nay đã checkin chưa
+                bool daVao = db.ChamCongs.Any(cc => cc.MaNV == maNV && cc.NgayCC == homNay);
+                if (daVao)
+                {
+                    MessageBox.Show("Bạn đã Check-in hôm nay rồi!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+                ChamCong ccMoi = new ChamCong();
+                // LẤY MÃ CA TỪ COMBOBOX
+                // Sửa dòng 345 thành như thế này:
+                int maCaDuocChon = (int)cbbCaLamViec.SelectedValue; ccMoi.MaNV = maNV;
+                ccMoi.NgayCC = homNay;
+                ccMoi.GioVao = DateTime.Now;
+                ccMoi.TrangThai = "Đang làm việc";
+                ccMoi.MaCa = maCaDuocChon;
+
+                db.ChamCongs.Add(ccMoi);
+                db.SaveChanges();
+
+                MessageBox.Show($"Check-in thành công lúc {DateTime.Now:HH:mm}!", "Báo danh");
+            }
+        }
+
+        private void btCheckout_Click(object sender, EventArgs e)
+        {
+            string maNV = LayMaNhanVienHienTai();
+            if (maNV == "") return;
+
+            using (HotelManagementEntities db = new HotelManagementEntities())
+            {
+                DateTime homNay = DateTime.Now.Date;
+
+                // Tìm bản ghi Check-in sáng nay mà chưa có giờ về (GioRa == null)
+                var caHienTai = db.ChamCongs.FirstOrDefault(cc => cc.MaNV == maNV && cc.NgayCC == homNay && cc.GioRa == null);
+
+                if (caHienTai != null)
+                {
+                    caHienTai.GioRa = DateTime.Now; // Chốt giờ về
+                    caHienTai.TrangThai = "Hoàn thành";
+                    db.SaveChanges();
+
+                    MessageBox.Show($"Check-out thành công lúc {DateTime.Now:HH:mm}! Nghỉ ngơi thôi.", "Báo danh");
+                }
+                else
+                {
+                    MessageBox.Show("Không tìm thấy dữ liệu Check-in của bạn hoặc bạn đã Check-out rồi!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+        }
+
+        private void LoadCaLamViec()
+        {
+            using (HotelManagementEntities db = new HotelManagementEntities())
+            {
+                // Lấy danh sách ca từ CSDL
+                var dsCa = db.CaLamViecs.Select(c => new
+                {
+                    MaCa = c.MaCa,
+                    TenCa = c.TenCa
+                }).ToList();
+
+                // Đổ lên ComboBox
+                cbbCaLamViec.DataSource = dsCa;
+                cbbCaLamViec.DisplayMember = "TenCa"; // Hiện chữ (Ca Sáng, Ca Chiều)
+                cbbCaLamViec.ValueMember = "MaCa";    // Giấu số (1, 2, 3) ở dưới
+
+                cbbCaLamViec.SelectedIndex = -1;
+            }
+        }
     }
 }
 
