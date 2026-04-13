@@ -264,5 +264,10 @@ namespace HotelManagement.GUI
                 }
             }
         }
+
+        private void groupboxTimKiem_Enter(object sender, EventArgs e)
+        {
+
+        }
     }
 }
