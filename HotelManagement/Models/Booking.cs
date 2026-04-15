@@ -27,6 +27,10 @@ namespace HotelManagement.Models
         public Nullable<System.DateTime> CheckInDate { get; set; }
         public Nullable<System.DateTime> CheckOutDate { get; set; }
         public string Status { get; set; }
+        public string EmployeeID { get; set; }
+        public Nullable<decimal> Deposit { get; set; }
+        public Nullable<int> NguonDat { get; set; }
+        public string Note { get; set; }
     
         public virtual Customer Customer { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

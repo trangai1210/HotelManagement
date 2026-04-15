@@ -303,6 +303,7 @@ namespace HotelManagement.GUI
 
         private void btQLNhanVien_Click(object sender, EventArgs e)
         {
+           
             OpenChildForm(new QLNhanVienForm());
         }
 

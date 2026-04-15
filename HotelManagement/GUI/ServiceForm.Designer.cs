@@ -178,8 +178,8 @@
             this.txtTimKiem.Name = "txtTimKiem";
             this.txtTimKiem.Size = new System.Drawing.Size(188, 36);
             this.txtTimKiem.TabIndex = 14;
-            this.txtTimKiem.Text = "Nhập dịch vụ cần tìm";
             this.txtTimKiem.TextChanged += new System.EventHandler(this.txtTimKiem_TextChanged);
+            this.txtTimKiem.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtTimKiem_KeyPress);
             // 
             // cboLoaiDV
             // 

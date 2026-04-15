@@ -14,7 +14,7 @@ namespace HotelManagement.Models
     
     public partial class BangLuong
     {
-        public int MaPhieu { get; set; }
+        public string MaPhieu { get; set; }
         public string MaNV { get; set; }
         public string ThangNam { get; set; }
         public Nullable<double> TongGioLam { get; set; }

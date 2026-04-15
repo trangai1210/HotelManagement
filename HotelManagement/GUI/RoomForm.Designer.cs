@@ -66,6 +66,7 @@
             this.groupboxTimKiem.TabIndex = 0;
             this.groupboxTimKiem.TabStop = false;
             this.groupboxTimKiem.Text = "Tìm kiếm";
+            this.groupboxTimKiem.Enter += new System.EventHandler(this.groupboxTimKiem_Enter);
             // 
             // txtTimKiem
             // 

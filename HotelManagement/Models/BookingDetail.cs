@@ -15,11 +15,12 @@ namespace HotelManagement.Models
     public partial class BookingDetail
     {
         public int BookingDetailID { get; set; }
-        public Nullable<int> BookingID { get; set; }
-        public Nullable<int> RoomID { get; set; }
-        public Nullable<double> Price { get; set; }
+        public int BookingID { get; set; }
+        public string RoomID { get; set; }
+        public decimal Price { get; set; }
+        public Nullable<int> SoNguoi { get; set; }
+        public Nullable<decimal> Discount { get; set; }
     
-        public virtual Room Room { get; set; }
         public virtual Booking Booking { get; set; }
     }
 }

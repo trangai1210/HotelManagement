@@ -40,60 +40,87 @@ namespace HotelManagement.GUI
              // ========== LOAD DATA GRID VIEW ==========
         private void LoadDataGridView(string timKiem = "")
         {
-            try
-            {
-                using (SqlConnection conn = new SqlConnection(GetConnectionString()))
+                try
                 {
-                    conn.Open();
-
-                    string sql = @"SELECT ServiceId, ServiceName, Price, Unit, Category
-                                   FROM Service";
-
-                    if (!string.IsNullOrEmpty(timKiem))
+                    using (SqlConnection conn = new SqlConnection(GetConnectionString()))
                     {
-                        sql += " WHERE ServiceName LIKE @timKiem";
+                        conn.Open();
+
+                        // Lấy từ khóa tìm kiếm
+                        string searchName = txtTimKiem.Text.Trim();
+
+                        // Lấy loại được chọn
+                        string selectedCategory = cboLoaiDV.SelectedValue?.ToString();
+
+                        // Xây dựng câu lệnh SQL
+                        string sql = @"SELECT ServiceId, ServiceName, Price, Unit, Category
+                                   FROM Service WHERE 1=1";
+
+                        // Thêm điều kiện lọc theo tên (không phân biệt hoa thường)
+                        if (!string.IsNullOrEmpty(searchName))
+                        {
+                            sql += " AND LOWER(ServiceName) LIKE @timKiem";
+                        }
+
+                        // Thêm điều kiện lọc theo loại (nếu không chọn "Tất cả")
+                        if (!string.IsNullOrEmpty(selectedCategory) && selectedCategory != "Tất cả")
+                        {
+                            sql += " AND Category = @Category";
+                        }
+
+                        sql += " ORDER BY ServiceId";
+
+                        SqlCommand cmd = new SqlCommand(sql, conn);
+
+                        // Thêm tham số tìm kiếm
+                        if (!string.IsNullOrEmpty(searchName))
+                        {
+                            cmd.Parameters.AddWithValue("@timKiem", "%" + searchName.ToLower() + "%");
+                        }
+
+                        // Thêm tham số loại
+                        if (!string.IsNullOrEmpty(selectedCategory) && selectedCategory != "Tất cả")
+                        {
+                            cmd.Parameters.AddWithValue("@Category", selectedCategory);
+                        }
+
+                        SqlDataAdapter da = new SqlDataAdapter(cmd);
+                        DataTable dt = new DataTable();
+                        da.Fill(dt);
+
+                        dgvDanhSach.DataSource = dt;
+
+                        // Định dạng cột Price
+                        if (dgvDanhSach.Columns["Price"] != null)
+                        {
+                            dgvDanhSach.Columns["Price"].DefaultCellStyle.Format = "N0";
+                            dgvDanhSach.Columns["Price"].HeaderText = "Đơn giá (VNĐ)";
+                        }
+
+                        // Đặt tên cột hiển thị
+                        if (dgvDanhSach.Columns["ServiceId"] != null)
+                            dgvDanhSach.Columns["ServiceId"].HeaderText = "Mã";
+                        if (dgvDanhSach.Columns["ServiceName"] != null)
+                            dgvDanhSach.Columns["ServiceName"].HeaderText = "Tên dịch vụ";
+                        if (dgvDanhSach.Columns["Unit"] != null)
+                            dgvDanhSach.Columns["Unit"].HeaderText = "Đơn vị";
+                        if (dgvDanhSach.Columns["Category"] != null)
+                            dgvDanhSach.Columns["Category"].HeaderText = "Loại";
+
+                        // Hiển thị thông báo nếu không tìm thấy
+                        if (dt.Rows.Count == 0 && !string.IsNullOrEmpty(searchName))
+                        {
+                            MessageBox.Show("Không tìm thấy dịch vụ nào!", "Thông báo",
+                                            MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
                     }
-
-                    sql += " ORDER BY ServiceId";
-
-                    SqlCommand cmd = new SqlCommand(sql, conn);
-
-                    if (!string.IsNullOrEmpty(timKiem))
-                    {
-                        cmd.Parameters.AddWithValue("@timKiem", "%" + timKiem + "%");
-                    }
-
-                    SqlDataAdapter da = new SqlDataAdapter(cmd);
-                    DataTable dt = new DataTable();
-                    da.Fill(dt);
-
-                    dgvDanhSach.DataSource = dt;
-
-                    // Định dạng cột Price
-                    if (dgvDanhSach.Columns["Price"] != null)
-                    {
-                        dgvDanhSach.Columns["Price"].DefaultCellStyle.Format = "N0";
-                        dgvDanhSach.Columns["Price"].HeaderText = "Đơn giá (VNĐ)";
-                    }
-
-                    // Đặt tên cột hiển thị
-                    if (dgvDanhSach.Columns["ServiceId"] != null)
-                        dgvDanhSach.Columns["ServiceId"].HeaderText = "Mã";
-                    if (dgvDanhSach.Columns["ServiceName"] != null)
-                        dgvDanhSach.Columns["ServiceName"].HeaderText = "Tên dịch vụ";
-                    if (dgvDanhSach.Columns["Unit"] != null)
-                        dgvDanhSach.Columns["Unit"].HeaderText = "Đơn vị";
-                    if (dgvDanhSach.Columns["Category"] != null)
-                        dgvDanhSach.Columns["Category"].HeaderText = "Loại";
-                    
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Lỗi tải dữ liệu: " + ex.Message, "Lỗi",
+                                    MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Lỗi tải dữ liệu: " + ex.Message, "Lỗi",
-                                MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
 
         private void LoadComboLoaiDV()
         {
@@ -108,10 +135,16 @@ namespace HotelManagement.GUI
                     DataTable dt = new DataTable();
                     da.Fill(dt);
 
+                    // Thêm dòng "Tất cả" vào đầu
+                    DataRow row = dt.NewRow();
+                    row["Category"] = "Tất cả";
+                    dt.Rows.InsertAt(row, 0);
+
                     cboLoaiDV.DataSource = dt;
                     cboLoaiDV.DisplayMember = "Category";
                     cboLoaiDV.ValueMember = "Category";
                     cboLoaiDV.DropDownStyle = ComboBoxStyle.DropDownList;
+                    cboLoaiDV.SelectedIndex = 0; // Mặc định chọn "Tất cả"
                 }
             }
             catch (Exception ex)
@@ -143,6 +176,13 @@ namespace HotelManagement.GUI
             if (!string.IsNullOrWhiteSpace(txtDonGia.Text))
                 decimal.TryParse(txtDonGia.Text, out price);
 
+            // Lấy loại được chọn
+            string selectedCategory = cboLoaiDV.SelectedValue?.ToString();
+            if (selectedCategory == "Tất cả")
+            {
+                selectedCategory = "";
+            }
+
             try
             {
                 using (SqlConnection conn = new SqlConnection(GetConnectionString()))
@@ -161,10 +201,11 @@ namespace HotelManagement.GUI
                     cmd.Parameters.AddWithValue("@ServiceName", txtTenDV.Text.Trim());
                     cmd.Parameters.AddWithValue("@Price", price);
                     cmd.Parameters.AddWithValue("@Unit", txtDonViTinh.Text.Trim());
-                    cmd.Parameters.AddWithValue("@Category", cboLoaiDV.SelectedValue?.ToString() ?? "");
-                   
+                    cmd.Parameters.AddWithValue("@Category", selectedCategory);
+
                     cmd.ExecuteNonQuery();
 
+                    LoadComboLoaiDV();
                     LoadDataGridView();
                     ClearForm();
 
@@ -201,6 +242,13 @@ namespace HotelManagement.GUI
                 }
             }
 
+            // Lấy loại được chọn
+            string selectedCategory = cboLoaiDV.SelectedValue?.ToString();
+            if (selectedCategory == "Tất cả")
+            {
+                selectedCategory = "";
+            }
+
             try
             {
                 using (SqlConnection conn = new SqlConnection(GetConnectionString()))
@@ -214,10 +262,11 @@ namespace HotelManagement.GUI
                     cmd.Parameters.AddWithValue("@ServiceName", txtTenDV.Text.Trim());
                     cmd.Parameters.AddWithValue("@Price", price);
                     cmd.Parameters.AddWithValue("@Unit", txtDonViTinh.Text.Trim());
-                    cmd.Parameters.AddWithValue("@Category", cboLoaiDV.SelectedValue?.ToString() ?? "");
-                   
+                    cmd.Parameters.AddWithValue("@Category", selectedCategory);
+
                     cmd.ExecuteNonQuery();
 
+                    LoadComboLoaiDV();  // Reload combobox để cập nhật loại mới
                     LoadDataGridView();
                     ClearForm();
 
@@ -269,6 +318,7 @@ namespace HotelManagement.GUI
                         cmd.Parameters.AddWithValue("@ServiceId", int.Parse(txtMaDV.Text));
                         cmd.ExecuteNonQuery();
 
+                        LoadComboLoaiDV();
                         LoadDataGridView();
                         ClearForm();
 
@@ -285,13 +335,15 @@ namespace HotelManagement.GUI
 
         private void btnRefresh_Click(object sender, EventArgs e)
         {
-            ClearForm();
+            txtTimKiem.Text = "";
+            cboLoaiDV.SelectedIndex = 0;
             LoadDataGridView();
+            ClearForm();
         }
 
         private void txtTimKiem_TextChanged(object sender, EventArgs e)
         {
-
+            
         }
 
         private void dgvDanhSach_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -307,23 +359,36 @@ namespace HotelManagement.GUI
 
                 // Chọn category trong combobox
                 string category = row.Cells["Category"].Value?.ToString() ?? "";
-                for (int i = 0; i < cboLoaiDV.Items.Count; i++)
+                if (string.IsNullOrEmpty(category))
                 {
-                    DataRowView drv = cboLoaiDV.Items[i] as DataRowView;
-                    if (drv != null && drv["Category"].ToString() == category)
+                    cboLoaiDV.SelectedIndex = 0;
+                }
+                else
+                {
+                    for (int i = 0; i < cboLoaiDV.Items.Count; i++)
                     {
-                        cboLoaiDV.SelectedIndex = i;
-                        break;
+                        DataRowView drv = cboLoaiDV.Items[i] as DataRowView;
+                        if (drv != null && drv["Category"].ToString() == category)
+                        {
+                            cboLoaiDV.SelectedIndex = i;
+                            break;
+                        }
                     }
                 }
-                               
             }
         }
 
         private void btnTim_Click(object sender, EventArgs e)
         {
-            LoadDataGridView(txtTimKiem.Text.Trim());
+            LoadDataGridView();
         }
-        
+
+        private void txtTimKiem_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                btnTim_Click(sender, e);
+            }
+        }
     }
 }

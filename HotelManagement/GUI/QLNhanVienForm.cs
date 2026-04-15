@@ -12,6 +12,9 @@ using System.Threading.Tasks;
 using System.Web.Security;
 using System.Web.UI.WebControls;
 using System.Windows.Forms;
+using System.IO;
+using System.Diagnostics;
+using Panel = System.Windows.Forms.Panel;
 
 namespace HotelManagement.GUI
 {
@@ -21,12 +24,23 @@ namespace HotelManagement.GUI
         HotelManagementEntities db = new HotelManagementEntities();
         // Biến dùng chung để chứa danh sách lương vừa tính
         List<BangLuong> danhSachLuongThangNay = new List<BangLuong>();
-
         public QLNhanVienForm()
         {
             InitializeComponent();
         }
+        // Hàm này sẽ tự động tắt hết các Panel và chỉ bật đúng 1 cái bạn yêu cầu
+        private void ChuyenTab(Panel pnlCanHienThi)
+        {
+            // 1. Tắt hết tất cả các Panel hiện có
+            pnlQLHoSo.Visible = false;
+            pnlTaiKhoan.Visible = false;
+            pnlBangLuong.Visible = false;
+            // Nếu sau này có pnl khác thì bạn cứ thêm dòng Visible = false vào đây
 
+            // 2. Chỉ bật duy nhất cái được chọn và đưa lên trên cùng
+            pnlCanHienThi.Visible = true;
+            pnlCanHienThi.BringToFront();
+        }
         private void menuStrip1_Click(object sender, EventArgs e)
         {
             // Kiểm tra xem form đã được mở chưa
@@ -190,6 +204,7 @@ namespace HotelManagement.GUI
 
         private void QLNhanVienForm_Load(object sender, EventArgs e)
         {
+            quảnLýHồSơToolStripMenuItem.PerformClick();
             DinhDangLuoi();
             chckTrangThai.Checked = true;
             LoadDanhSachChucVu(); // Tải chức vụ vào ComboBox trước
@@ -198,18 +213,7 @@ namespace HotelManagement.GUI
 
         private void quảnLýHồSơToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            // 1. Ẩn các Panel khác (nếu bạn đã tạo chúng)
-            // pnlTaiKhoan.Visible = false;
-            // pnlCaLamViec.Visible = false;
-
-            // 2. Bật Panel Quản lý hồ sơ lên
-            pnlQLHoSo.Visible = true;
-
-            // 3. Đưa Panel này lên lớp trên cùng để đảm bảo không bị Panel nào khác đè lên
-            pnlQLHoSo.BringToFront();
-
-            // 4. (Tùy chọn) Gọi hàm load dữ liệu để làm mới danh sách mỗi khi mở tab này
-            // LoadDuLieuNhanVien();
+            ChuyenTab(pnlQLHoSo);
         }
 
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -497,11 +501,7 @@ namespace HotelManagement.GUI
         {
             KhoiTaoTabTaiKhoan();
 
-            pnlTaiKhoan.Visible = true;
-
-            // 3. Đưa Panel này lên lớp trên cùng để đảm bảo không bị Panel nào khác đè lên
-            pnlTaiKhoan.BringToFront();
-
+            ChuyenTab(pnlTaiKhoan);
         }
 
         private void btTaoTaiKhoan_Click(object sender, EventArgs e)
@@ -713,7 +713,7 @@ namespace HotelManagement.GUI
 
                         BangLuong luongNV = new BangLuong();
                         luongNV.MaNV = nv.MaNV;
-                        // luongNV.HoTen = nv.HoTen;
+                       // luongNV.HoTen = nv.HoTen;
                         luongNV.TongGioLam = tongGio;
                         luongNV.LuongTheoGio = luongCuaChucVuNay;
                         luongNV.TongTien = (decimal)tongGio * luongCuaChucVuNay; // Công thức: Giờ x Lương
@@ -722,11 +722,28 @@ namespace HotelManagement.GUI
                     }
                 }
 
+
                 // Đổ dữ liệu lên giao diện (DataGridView)
                 dgvBangLuong.DataSource = null;
-                dgvBangLuong.DataSource = danhSachLuongThangNay;
-
+                dgvBangLuong.DataSource = danhSachLuongThangNay.Select(bl => new
+                {
+                    MaNV = bl.MaNV,
+                    // Móc sang danh sách tatCaNV để lấy cái Tên đắp vào
+                    HoTen = tatCaNV.FirstOrDefault(nv => nv.MaNV == bl.MaNV)?.HoTen,
+                    TongGioLam = bl.TongGioLam,
+                    LuongTheoGio = bl.LuongTheoGio,
+                    TongTien = bl.TongTien
+                }).ToList();
+                
+                // Đổi tên tiêu đề cho đẹp
+                dgvBangLuong.Columns["MaNV"].HeaderText = "Mã NV";
+                dgvBangLuong.Columns["HoTen"].HeaderText = "Họ và Tên";
+                dgvBangLuong.Columns["TongGioLam"].HeaderText = "Tổng Giờ";
+                dgvBangLuong.Columns["LuongTheoGio"].HeaderText = "Lương/Giờ";
+                dgvBangLuong.Columns["TongTien"].HeaderText = "Thực Lĩnh";
+              //  dgvBangLuong.Columns["Employee"].Visible = false;
                 // Mở khóa nút Lưu
+
                 btLuu.Enabled = true;
 
                 MessageBox.Show($"Đã tự động tính xong lương cho {danhSachLuongThangNay.Count} nhân viên!", "Hoàn tất", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -735,9 +752,10 @@ namespace HotelManagement.GUI
 
         private void btLuu_Click(object sender, EventArgs e)
         {
-            if (danhSachLuongThangNay.Count == 0) return;
+             if (danhSachLuongThangNay.Count == 0) return;
 
             string thangNamChuoi = dtpThangNam.Value.ToString("MM/yyyy");
+            string thangNamCode = thangNamChuoi.Replace("/", ""); // Biến "04/2026" thành "042026"
 
             using (HotelManagementEntities db = new HotelManagementEntities())
             {
@@ -748,12 +766,16 @@ namespace HotelManagement.GUI
 
                     if (!daTonTai)
                     {
+                        // 🔥 TẠO MÃ LOGIC MỚI: Ghép Mã Đợt với Mã Nhân Viên (VD: PL-042026-NV001)
+                        string maPhieuMoi = $"PL-{thangNamCode}-{item.MaNV}";
+
                         BangLuong bl = new BangLuong();
+                        bl.MaPhieu = maPhieuMoi;
                         bl.MaNV = item.MaNV;
                         bl.ThangNam = thangNamChuoi;
                         bl.TongGioLam = item.TongGioLam;
                         bl.LuongTheoGio = item.LuongTheoGio;
-                        bl.TienThuong = 0; // Bản này không dùng thưởng phạt nên gắn cứng = 0
+                        bl.TienThuong = 0;
                         bl.TienPhat = 0;
                         bl.TongTien = item.TongTien;
                         bl.NgayLapPhieu = DateTime.Now;
@@ -764,11 +786,110 @@ namespace HotelManagement.GUI
 
                 db.SaveChanges();
 
-                MessageBox.Show($"Đã lưu toàn bộ Bảng lương tháng {thangNamChuoi} vào hệ thống thành công!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                // Lưu xong thì khóa nút lại để khỏi bấm nhầm
+                MessageBox.Show($"Đã chốt lương đợt {thangNamChuoi} thành công!", "Hoàn tất", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 btLuu.Enabled = false;
             }
+        }
+        private void xuatDataGridViewRaPDF(DataGridView dgv,string tenFileHeader)
+        {
+            //khởi tạo hộp thoại lưu file
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.Filter = "PDF Files|*.pdf";
+            sfd.FileName = tenFileHeader + ".pdf";
+
+            if(sfd.ShowDialog() == DialogResult.OK )
+            {
+                try
+                {
+
+                    string fontPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Fonts), "arial.ttf");
+                    iTextSharp.text.pdf.BaseFont bf = iTextSharp.text.pdf.BaseFont.CreateFont(fontPath, iTextSharp.text.pdf.BaseFont.IDENTITY_H, iTextSharp.text.pdf.BaseFont.EMBEDDED);
+
+                    // Chỉ định đích danh iTextSharp.text.Font để tránh lỗi Ambiguous
+                    iTextSharp.text.Font fontTieuDe = new iTextSharp.text.Font(bf, 16, iTextSharp.text.Font.BOLD);
+                    iTextSharp.text.Font fontCot = new iTextSharp.text.Font(bf, 11, iTextSharp.text.Font.BOLD);
+                    iTextSharp.text.Font fontChu = new iTextSharp.text.Font(bf, 11, iTextSharp.text.Font.NORMAL);
+
+                    // 3. Tạo Document PDF mới (Khổ A4)
+                    iTextSharp.text.Document pdfDoc = new iTextSharp.text.Document(iTextSharp.text.PageSize.A4, 10f, 10f, 20f, 10f);
+                    iTextSharp.text.pdf.PdfWriter.GetInstance(pdfDoc, new FileStream(sfd.FileName, FileMode.Create));
+
+                    pdfDoc.Open();
+
+                    // 4. Thêm Tiêu đề cho file PDF
+                    iTextSharp.text.Paragraph title = new iTextSharp.text.Paragraph("BẢNG TỔNG HỢP LƯƠNG NHÂN VIÊN\n\n", fontTieuDe);
+                    title.Alignment = iTextSharp.text.Element.ALIGN_CENTER;
+                    pdfDoc.Add(title);
+
+                    // 5. Tạo bảng trong PDF (Chỉ lấy số cột đang hiển thị trên Grid)
+                    int soCotVisible = 0;
+                    foreach (DataGridViewColumn col in dgv.Columns) if (col.Visible) soCotVisible++;
+
+                    iTextSharp.text.pdf.PdfPTable pdfTable = new iTextSharp.text.pdf.PdfPTable(soCotVisible);
+                    pdfTable.WidthPercentage = 100;
+
+                    // 6. Vẽ Header cho bảng
+                    foreach (DataGridViewColumn column in dgv.Columns)
+                    {
+                        if (column.Visible)
+                        {
+                            iTextSharp.text.pdf.PdfPCell cell = new iTextSharp.text.pdf.PdfPCell(new iTextSharp.text.Phrase(column.HeaderText, fontCot));
+                            cell.BackgroundColor = new iTextSharp.text.BaseColor(240, 240, 240);
+                            cell.HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER;
+                            cell.Padding = 5;
+                            pdfTable.AddCell(cell);
+                        }
+                    }
+
+                    // 7. Đổ dữ liệu từ DataGridView vào bảng PDF
+                    foreach (DataGridViewRow row in dgv.Rows)
+                    {
+                        if (row.IsNewRow) continue;
+                        foreach (DataGridViewCell cell in row.Cells)
+                        {
+                            if (dgv.Columns[cell.ColumnIndex].Visible)
+                            {
+                                string giaTri = cell.Value != null ? cell.Value.ToString() : "";
+                                iTextSharp.text.pdf.PdfPCell pCell = new iTextSharp.text.pdf.PdfPCell(new iTextSharp.text.Phrase(giaTri, fontChu));
+                                pCell.Padding = 5;
+                                pdfTable.AddCell(pCell);
+                            }
+                        }
+                    }
+
+                    // 8. Chốt file và đóng lại
+                    pdfDoc.Add(pdfTable);
+                    pdfDoc.Close();
+
+                    MessageBox.Show("Đã xuất file PDF thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    // Tự động mở file PDF vừa tạo
+                    Process.Start(sfd.FileName);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Có lỗi xảy ra: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void btXuatPDF_Click(object sender, EventArgs e)
+        {
+            // dgvBangLuong là tên DataGridView của bạn
+            if (dgvBangLuong.Rows.Count > 0)
+            {
+                string tenFile = "BangLuong_" + DateTime.Now.ToString("yyyyMMdd_HHmmss");
+                xuatDataGridViewRaPDF(dgvBangLuong, tenFile);
+            }
+            else
+            {
+                MessageBox.Show("Không có dữ liệu để xuất PDF!", "Thông báo");
+            }
+        }
+
+        private void bảngLươngToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ChuyenTab(pnlBangLuong);
         }
     }
 }

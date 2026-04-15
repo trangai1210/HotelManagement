@@ -65,8 +65,10 @@
             this.label1 = new System.Windows.Forms.Label();
             this.pnlTaiKhoan = new System.Windows.Forms.Panel();
             this.pnlBangLuong = new System.Windows.Forms.Panel();
-            this.btLuong = new System.Windows.Forms.Button();
+            this.btLuu = new System.Windows.Forms.Button();
             this.dtpThangNam = new System.Windows.Forms.DateTimePicker();
+            this.dgvBangLuong = new System.Windows.Forms.DataGridView();
+            this.btLuong = new System.Windows.Forms.Button();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.label14 = new System.Windows.Forms.Label();
             this.comboBoxNhanVien = new System.Windows.Forms.ComboBox();
@@ -84,8 +86,7 @@
             this.btDatLaiMk = new System.Windows.Forms.Button();
             this.btCapNhat = new System.Windows.Forms.Button();
             this.btTaoTaiKhoan = new System.Windows.Forms.Button();
-            this.dgvBangLuong = new System.Windows.Forms.DataGridView();
-            this.btLuu = new System.Windows.Forms.Button();
+            this.btXuatPDF = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.pnlQLHoSo.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -94,11 +95,11 @@
             this.groupBox1.SuspendLayout();
             this.pnlTaiKhoan.SuspendLayout();
             this.pnlBangLuong.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvBangLuong)).BeginInit();
             this.groupBox6.SuspendLayout();
             this.groupBox5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTaiKhoan)).BeginInit();
             this.groupBox4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvBangLuong)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -118,22 +119,23 @@
             // quảnLýHồSơToolStripMenuItem
             // 
             this.quảnLýHồSơToolStripMenuItem.Name = "quảnLýHồSơToolStripMenuItem";
-            this.quảnLýHồSơToolStripMenuItem.Size = new System.Drawing.Size(113, 26);
+            this.quảnLýHồSơToolStripMenuItem.Size = new System.Drawing.Size(113, 24);
             this.quảnLýHồSơToolStripMenuItem.Text = "Quản lý hồ sơ";
             this.quảnLýHồSơToolStripMenuItem.Click += new System.EventHandler(this.quảnLýHồSơToolStripMenuItem_Click);
             // 
             // tàiKhoảnPhânQuyềnToolStripMenuItem
             // 
             this.tàiKhoảnPhânQuyềnToolStripMenuItem.Name = "tàiKhoảnPhânQuyềnToolStripMenuItem";
-            this.tàiKhoảnPhânQuyềnToolStripMenuItem.Size = new System.Drawing.Size(169, 26);
+            this.tàiKhoảnPhânQuyềnToolStripMenuItem.Size = new System.Drawing.Size(169, 24);
             this.tàiKhoảnPhânQuyềnToolStripMenuItem.Text = "Tài khoản & Phân quyền";
             this.tàiKhoảnPhânQuyềnToolStripMenuItem.Click += new System.EventHandler(this.tàiKhoảnPhânQuyềnToolStripMenuItem_Click);
             // 
             // bảngLươngToolStripMenuItem
             // 
             this.bảngLươngToolStripMenuItem.Name = "bảngLươngToolStripMenuItem";
-            this.bảngLươngToolStripMenuItem.Size = new System.Drawing.Size(100, 26);
+            this.bảngLươngToolStripMenuItem.Size = new System.Drawing.Size(100, 24);
             this.bảngLươngToolStripMenuItem.Text = "Bảng lương";
+            this.bảngLươngToolStripMenuItem.Click += new System.EventHandler(this.bảngLươngToolStripMenuItem_Click);
             // 
             // contextMenuStrip1
             // 
@@ -451,7 +453,6 @@
             // 
             // pnlTaiKhoan
             // 
-            this.pnlTaiKhoan.Controls.Add(this.pnlBangLuong);
             this.pnlTaiKhoan.Controls.Add(this.groupBox6);
             this.pnlTaiKhoan.Controls.Add(this.groupBox5);
             this.pnlTaiKhoan.Controls.Add(this.groupBox4);
@@ -463,34 +464,59 @@
             // 
             // pnlBangLuong
             // 
+            this.pnlBangLuong.Controls.Add(this.btXuatPDF);
             this.pnlBangLuong.Controls.Add(this.btLuu);
             this.pnlBangLuong.Controls.Add(this.dtpThangNam);
             this.pnlBangLuong.Controls.Add(this.dgvBangLuong);
             this.pnlBangLuong.Controls.Add(this.btLuong);
             this.pnlBangLuong.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlBangLuong.Location = new System.Drawing.Point(0, 0);
+            this.pnlBangLuong.Location = new System.Drawing.Point(0, 30);
             this.pnlBangLuong.Name = "pnlBangLuong";
             this.pnlBangLuong.Size = new System.Drawing.Size(1368, 684);
             this.pnlBangLuong.TabIndex = 8;
             // 
+            // btLuu
+            // 
+            this.btLuu.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btLuu.Location = new System.Drawing.Point(645, 574);
+            this.btLuu.Name = "btLuu";
+            this.btLuu.Size = new System.Drawing.Size(113, 61);
+            this.btLuu.TabIndex = 3;
+            this.btLuu.Text = "Lưu";
+            this.btLuu.UseVisualStyleBackColor = true;
+            this.btLuu.Click += new System.EventHandler(this.btLuu_Click);
+            // 
+            // dtpThangNam
+            // 
+            this.dtpThangNam.CustomFormat = "MM/yyyy";
+            this.dtpThangNam.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dtpThangNam.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dtpThangNam.Location = new System.Drawing.Point(99, 26);
+            this.dtpThangNam.Name = "dtpThangNam";
+            this.dtpThangNam.Size = new System.Drawing.Size(200, 30);
+            this.dtpThangNam.TabIndex = 1;
+            // 
+            // dgvBangLuong
+            // 
+            this.dgvBangLuong.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvBangLuong.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvBangLuong.Location = new System.Drawing.Point(47, 83);
+            this.dgvBangLuong.Name = "dgvBangLuong";
+            this.dgvBangLuong.RowHeadersWidth = 51;
+            this.dgvBangLuong.RowTemplate.Height = 24;
+            this.dgvBangLuong.Size = new System.Drawing.Size(1275, 441);
+            this.dgvBangLuong.TabIndex = 2;
+            // 
             // btLuong
             // 
-            this.btLuong.Location = new System.Drawing.Point(12, 387);
+            this.btLuong.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btLuong.Location = new System.Drawing.Point(457, 573);
             this.btLuong.Name = "btLuong";
             this.btLuong.Size = new System.Drawing.Size(121, 62);
             this.btLuong.TabIndex = 1;
             this.btLuong.Text = "Tính lương";
             this.btLuong.UseVisualStyleBackColor = true;
             this.btLuong.Click += new System.EventHandler(this.btLuong_Click);
-            // 
-            // dtpThangNam
-            // 
-            this.dtpThangNam.CustomFormat = "MM/yyyy";
-            this.dtpThangNam.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtpThangNam.Location = new System.Drawing.Point(40, 101);
-            this.dtpThangNam.Name = "dtpThangNam";
-            this.dtpThangNam.Size = new System.Drawing.Size(200, 22);
-            this.dtpThangNam.TabIndex = 1;
             // 
             // groupBox6
             // 
@@ -670,31 +696,23 @@
             this.btTaoTaiKhoan.UseVisualStyleBackColor = true;
             this.btTaoTaiKhoan.Click += new System.EventHandler(this.btTaoTaiKhoan_Click);
             // 
-            // dgvBangLuong
+            // btXuatPDF
             // 
-            this.dgvBangLuong.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvBangLuong.Location = new System.Drawing.Point(328, 50);
-            this.dgvBangLuong.Name = "dgvBangLuong";
-            this.dgvBangLuong.RowHeadersWidth = 51;
-            this.dgvBangLuong.RowTemplate.Height = 24;
-            this.dgvBangLuong.Size = new System.Drawing.Size(541, 468);
-            this.dgvBangLuong.TabIndex = 2;
-            // 
-            // btLuu
-            // 
-            this.btLuu.Location = new System.Drawing.Point(144, 387);
-            this.btLuu.Name = "btLuu";
-            this.btLuu.Size = new System.Drawing.Size(113, 61);
-            this.btLuu.TabIndex = 3;
-            this.btLuu.Text = "Lưu";
-            this.btLuu.UseVisualStyleBackColor = true;
-            this.btLuu.Click += new System.EventHandler(this.btLuu_Click);
+            this.btXuatPDF.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btXuatPDF.Location = new System.Drawing.Point(825, 574);
+            this.btXuatPDF.Name = "btXuatPDF";
+            this.btXuatPDF.Size = new System.Drawing.Size(113, 61);
+            this.btXuatPDF.TabIndex = 3;
+            this.btXuatPDF.Text = "Xuất file";
+            this.btXuatPDF.UseVisualStyleBackColor = true;
+            this.btXuatPDF.Click += new System.EventHandler(this.btXuatPDF_Click);
             // 
             // QLNhanVienForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1368, 714);
+            this.Controls.Add(this.pnlBangLuong);
             this.Controls.Add(this.pnlTaiKhoan);
             this.Controls.Add(this.pnlQLHoSo);
             this.Controls.Add(this.menuStrip1);
@@ -713,12 +731,12 @@
             this.groupBox1.PerformLayout();
             this.pnlTaiKhoan.ResumeLayout(false);
             this.pnlBangLuong.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvBangLuong)).EndInit();
             this.groupBox6.ResumeLayout(false);
             this.groupBox6.PerformLayout();
             this.groupBox5.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTaiKhoan)).EndInit();
             this.groupBox4.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvBangLuong)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -783,5 +801,6 @@
         private System.Windows.Forms.Button btLuong;
         private System.Windows.Forms.DataGridView dgvBangLuong;
         private System.Windows.Forms.Button btLuu;
+        private System.Windows.Forms.Button btXuatPDF;
     }
 }

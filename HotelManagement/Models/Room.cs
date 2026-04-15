@@ -14,20 +14,12 @@ namespace HotelManagement.Models
     
     public partial class Room
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Room()
-        {
-            this.BookingDetails = new HashSet<BookingDetail>();
-        }
-    
         public int RoomID { get; set; }
         public string RoomName { get; set; }
         public Nullable<int> RoomTypeID { get; set; }
         public string Status { get; set; }
         public Nullable<int> Floor { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<BookingDetail> BookingDetails { get; set; }
         public virtual RoomType RoomType { get; set; }
     }
 }
