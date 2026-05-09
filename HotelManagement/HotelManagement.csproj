@@ -164,6 +164,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DAL\Databasecs.cs" />
+    <Compile Include="GUI\Booking.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\Booking.Designer.cs">
+      <DependentUpon>Booking.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUI\CustomerForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -175,6 +181,24 @@
     </Compile>
     <Compile Include="GUI\FormRegister.Designer.cs">
       <DependentUpon>FormRegister.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\FrmChiTietPhong.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\FrmChiTietPhong.Designer.cs">
+      <DependentUpon>FrmChiTietPhong.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\FrmDatPhong.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\FrmDatPhong.Designer.cs">
+      <DependentUpon>FrmDatPhong.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\FrmThemDichVu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\FrmThemDichVu.Designer.cs">
+      <DependentUpon>FrmThemDichVu.cs</DependentUpon>
     </Compile>
     <Compile Include="GUI\InvoiceDetailForm.cs">
       <SubType>Form</SubType>
@@ -224,6 +248,12 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="GUI\ttDatPhong.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\ttDatPhong.Designer.cs">
+      <DependentUpon>ttDatPhong.cs</DependentUpon>
+    </Compile>
     <Compile Include="HotelManagementDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -236,6 +266,9 @@
       <DependentUpon>HotelManagement.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\BookingDetail.cs">
+      <DependentUpon>HotelManagement.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\BookingService.cs">
       <DependentUpon>HotelManagement.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\CaLamViec.cs">
@@ -288,11 +321,29 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UC_RoomCard.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UC_RoomCard.Designer.cs">
+      <DependentUpon>UC_RoomCard.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="GUI\Booking.resx">
+      <DependentUpon>Booking.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GUI\CustomerForm.resx">
       <DependentUpon>CustomerForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\FormRegister.resx">
       <DependentUpon>FormRegister.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\FrmChiTietPhong.resx">
+      <DependentUpon>FrmChiTietPhong.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\FrmDatPhong.resx">
+      <DependentUpon>FrmDatPhong.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\FrmThemDichVu.resx">
+      <DependentUpon>FrmThemDichVu.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\InvoiceDetailForm.resx">
       <DependentUpon>InvoiceDetailForm.cs</DependentUpon>
@@ -315,6 +366,9 @@
     <EmbeddedResource Include="GUI\ServiceForm.resx">
       <DependentUpon>ServiceForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="GUI\ttDatPhong.resx">
+      <DependentUpon>ttDatPhong.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -325,6 +379,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="UC_RoomCard.resx">
+      <DependentUpon>UC_RoomCard.cs</DependentUpon>
+    </EmbeddedResource>
     <EntityDeploy Include="Models\HotelManagement.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>HotelManagement.Designer.cs</LastGenOutput>

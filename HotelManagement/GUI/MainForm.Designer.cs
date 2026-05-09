@@ -37,15 +37,16 @@
             this.btCustomer = new System.Windows.Forms.Button();
             this.btInvoice = new System.Windows.Forms.Button();
             this.btBooking = new System.Windows.Forms.Button();
+            this.btQLDatPhong = new System.Windows.Forms.Button();
             this.pictureSlide = new System.Windows.Forms.PictureBox();
             this.panelTop = new System.Windows.Forms.Panel();
-            this.btnMenu = new System.Windows.Forms.Button();
-            this.panelContent = new System.Windows.Forms.Panel();
-            this.btCheckout = new System.Windows.Forms.Button();
-            this.btCheckin = new System.Windows.Forms.Button();
-            this.slideTimer = new System.Windows.Forms.Timer(this.components);
-            this.cbbCaLamViec = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.cbbCaLamViec = new System.Windows.Forms.ComboBox();
+            this.btCheckout = new System.Windows.Forms.Button();
+            this.btnMenu = new System.Windows.Forms.Button();
+            this.btCheckin = new System.Windows.Forms.Button();
+            this.panelContent = new System.Windows.Forms.Panel();
+            this.slideTimer = new System.Windows.Forms.Timer(this.components);
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureSlide)).BeginInit();
             this.panelTop.SuspendLayout();
@@ -63,9 +64,10 @@
             this.panel1.Controls.Add(this.btCustomer);
             this.panel1.Controls.Add(this.btInvoice);
             this.panel1.Controls.Add(this.btBooking);
-            this.panel1.Location = new System.Drawing.Point(0, 24);
+            this.panel1.Controls.Add(this.btQLDatPhong);
+            this.panel1.Location = new System.Drawing.Point(0, 41);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(286, 649);
+            this.panel1.Size = new System.Drawing.Size(286, 632);
             this.panel1.TabIndex = 0;
             // 
             // btQLNhanVien
@@ -149,6 +151,7 @@
             this.btInvoice.TabIndex = 3;
             this.btInvoice.Text = "Hóa Đơn";
             this.btInvoice.UseVisualStyleBackColor = false;
+            this.btInvoice.Click += new System.EventHandler(this.btInvoice_Click);
             // 
             // btBooking
             // 
@@ -162,6 +165,21 @@
             this.btBooking.TabIndex = 2;
             this.btBooking.Text = "Đặt Phòng";
             this.btBooking.UseVisualStyleBackColor = false;
+            this.btBooking.Click += new System.EventHandler(this.btBooking_Click);
+            // 
+            // btQLDatPhong
+            // 
+            this.btQLDatPhong.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(35)))), ((int)(((byte)(35)))));
+            this.btQLDatPhong.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btQLDatPhong.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btQLDatPhong.ForeColor = System.Drawing.Color.White;
+            this.btQLDatPhong.Location = new System.Drawing.Point(0, 0);
+            this.btQLDatPhong.Name = "btQLDatPhong";
+            this.btQLDatPhong.Size = new System.Drawing.Size(292, 95);
+            this.btQLDatPhong.TabIndex = 7;
+            this.btQLDatPhong.Text = "QL Đặt Phòng";
+            this.btQLDatPhong.UseVisualStyleBackColor = false;
+            this.btQLDatPhong.Click += new System.EventHandler(this.btQLDatPhong_Click);
             // 
             // pictureSlide
             // 
@@ -187,6 +205,34 @@
             this.panelTop.Size = new System.Drawing.Size(1318, 41);
             this.panelTop.TabIndex = 2;
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.label1.Location = new System.Drawing.Point(837, 11);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(83, 17);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "Chọn ca làm:";
+            // 
+            // cbbCaLamViec
+            // 
+            this.cbbCaLamViec.FormattingEnabled = true;
+            this.cbbCaLamViec.Location = new System.Drawing.Point(926, 8);
+            this.cbbCaLamViec.Name = "cbbCaLamViec";
+            this.cbbCaLamViec.Size = new System.Drawing.Size(96, 25);
+            this.cbbCaLamViec.TabIndex = 1;
+            // 
+            // btCheckout
+            // 
+            this.btCheckout.Location = new System.Drawing.Point(1178, 6);
+            this.btCheckout.Name = "btCheckout";
+            this.btCheckout.Size = new System.Drawing.Size(112, 28);
+            this.btCheckout.TabIndex = 0;
+            this.btCheckout.Text = "Check out";
+            this.btCheckout.UseVisualStyleBackColor = true;
+            this.btCheckout.Click += new System.EventHandler(this.btCheckout_Click);
+            // 
             // btnMenu
             // 
             this.btnMenu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(28)))), ((int)(((byte)(28)))));
@@ -201,25 +247,6 @@
             this.btnMenu.UseVisualStyleBackColor = false;
             this.btnMenu.Click += new System.EventHandler(this.btnMenu_Click);
             // 
-            // panelContent
-            // 
-            this.panelContent.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.panelContent.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelContent.Location = new System.Drawing.Point(0, 41);
-            this.panelContent.Name = "panelContent";
-            this.panelContent.Size = new System.Drawing.Size(1318, 589);
-            this.panelContent.TabIndex = 1;
-            // 
-            // btCheckout
-            // 
-            this.btCheckout.Location = new System.Drawing.Point(1178, 6);
-            this.btCheckout.Name = "btCheckout";
-            this.btCheckout.Size = new System.Drawing.Size(112, 28);
-            this.btCheckout.TabIndex = 0;
-            this.btCheckout.Text = "Check out";
-            this.btCheckout.UseVisualStyleBackColor = true;
-            this.btCheckout.Click += new System.EventHandler(this.btCheckout_Click);
-            // 
             // btCheckin
             // 
             this.btCheckin.Location = new System.Drawing.Point(1047, 5);
@@ -230,28 +257,19 @@
             this.btCheckin.UseVisualStyleBackColor = true;
             this.btCheckin.Click += new System.EventHandler(this.btCheckin_Click);
             // 
+            // panelContent
+            // 
+            this.panelContent.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.panelContent.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelContent.Location = new System.Drawing.Point(0, 41);
+            this.panelContent.Name = "panelContent";
+            this.panelContent.Size = new System.Drawing.Size(1318, 589);
+            this.panelContent.TabIndex = 1;
+            // 
             // slideTimer
             // 
             this.slideTimer.Interval = 3000;
             this.slideTimer.Tick += new System.EventHandler(this.slideTimer_Tick);
-            // 
-            // cbbCaLamViec
-            // 
-            this.cbbCaLamViec.FormattingEnabled = true;
-            this.cbbCaLamViec.Location = new System.Drawing.Point(926, 8);
-            this.cbbCaLamViec.Name = "cbbCaLamViec";
-            this.cbbCaLamViec.Size = new System.Drawing.Size(96, 25);
-            this.cbbCaLamViec.TabIndex = 1;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label1.Location = new System.Drawing.Point(837, 11);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(83, 17);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "Chọn ca làm:";
             // 
             // MainForm
             // 
@@ -268,7 +286,7 @@
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "MainForm";
-            this.WindowState = System.Windows.Forms.FormWindowState.Minimized;
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureSlide)).EndInit();
@@ -297,5 +315,6 @@
         private System.Windows.Forms.Button btCheckout;
         private System.Windows.Forms.ComboBox cbbCaLamViec;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button btQLDatPhong;
     }
 }

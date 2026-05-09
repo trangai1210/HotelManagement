@@ -18,6 +18,7 @@ namespace HotelManagement
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new MainForm("Quản lý", "AdminTest"));
+           // Application.Run(new FrmThemDichVu(10));
         }
     }
 }

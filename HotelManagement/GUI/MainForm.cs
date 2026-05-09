@@ -39,6 +39,9 @@ namespace HotelManagement.GUI
         public MainForm(string quyenHanHienTai, string usernameHienTai)
         {
             InitializeComponent();
+            this.DoubleBuffered = true;
+            SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint | ControlStyles.DoubleBuffer, true);
+            UpdateStyles();
             this.quyenHanHienTai = quyenHanHienTai;
             this.usernameHienTai = usernameHienTai;
         }
@@ -128,13 +131,6 @@ namespace HotelManagement.GUI
             panel1.Padding = new Padding(0, 10, 0, 0);
 
             panelContent.Padding = new Padding(0);
-
-            Panel overlay = new Panel();
-            overlay.BackColor = Color.FromArgb(120, 0, 20, 40);
-            overlay.Dock = DockStyle.Fill;
-
-            pictureSlide.Controls.Add(overlay);
-            overlay.SendToBack();
 
             //tiêu đề menutop
             Label title = new Label();
@@ -402,6 +398,21 @@ namespace HotelManagement.GUI
 
                 cbbCaLamViec.SelectedIndex = -1;
             }
+        }
+
+        private void btBooking_Click(object sender, EventArgs e)
+        {
+            OpenChildForm(new Booking());
+        }
+
+        private void btQLDatPhong_Click(object sender, EventArgs e)
+        {
+            OpenChildForm(new FrmDatPhong());
+        }
+
+        private void btInvoice_Click(object sender, EventArgs e)
+        {
+            OpenChildForm(new InvoiceForm());
         }
     }
 }

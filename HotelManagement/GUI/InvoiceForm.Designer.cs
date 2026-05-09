@@ -46,7 +46,6 @@
             this.txtTimKiem.Name = "txtTimKiem";
             this.txtTimKiem.Size = new System.Drawing.Size(198, 22);
             this.txtTimKiem.TabIndex = 0;
-            this.txtTimKiem.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtTimKiem_KeyDown);
             // 
             // btnTim
             // 
@@ -56,7 +55,6 @@
             this.btnTim.TabIndex = 1;
             this.btnTim.Text = "🔍 Tìm";
             this.btnTim.UseVisualStyleBackColor = true;
-            this.btnTim.Click += new System.EventHandler(this.btnTim_Click);
             // 
             // cboLoc
             // 
@@ -100,6 +98,8 @@
             // 
             // dtpNgay
             // 
+            this.dtpNgay.CustomFormat = "dd/MM/yyyy";
+            this.dtpNgay.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dtpNgay.Location = new System.Drawing.Point(774, 40);
             this.dtpNgay.Name = "dtpNgay";
             this.dtpNgay.Size = new System.Drawing.Size(200, 22);
@@ -120,7 +120,6 @@
             this.groupBox1.TabIndex = 19;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Hóa đơn";
-            this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
             // 
             // InvoiceForm
             // 
@@ -130,6 +129,7 @@
             this.Controls.Add(this.groupBox1);
             this.Name = "InvoiceForm";
             this.Text = "InvoiceForm";
+            this.Load += new System.EventHandler(this.InvoiceForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvHoaDon)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

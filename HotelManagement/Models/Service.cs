@@ -14,10 +14,19 @@ namespace HotelManagement.Models
     
     public partial class Service
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Service()
+        {
+            this.BookingServices = new HashSet<BookingService>();
+        }
+    
         public int ServiceId { get; set; }
         public string ServiceName { get; set; }
         public decimal Price { get; set; }
         public string Unit { get; set; }
         public string Category { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<BookingService> BookingServices { get; set; }
     }
 }

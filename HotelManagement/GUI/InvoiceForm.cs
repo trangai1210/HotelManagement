@@ -1,173 +1,139 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Configuration;
+﻿using HotelManagement.Models;
+using System;
 using System.Data;
-using System.Data.SqlClient;
-using System.Drawing;
+using System.Data.Entity;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace HotelManagement.GUI
 {
     public partial class InvoiceForm : Form
     {
-        private string GetConnectionString()
-        {
-            string efString = ConfigurationManager
-                .ConnectionStrings["HotelManagementEntities"]
-                .ConnectionString;
-
-            int start = efString.IndexOf("provider connection string=\"")
-                        + "provider connection string=\"".Length;
-
-            int end = efString.LastIndexOf("\"");
-
-            string sqlString = efString.Substring(start, end - start);
-
-            return sqlString.Replace("&quot;", "\"");
-        }
-            public InvoiceForm()
+        public InvoiceForm()
         {
             InitializeComponent();
-            LoadInvoices();
-            LoadComboSearch();
+            this.Load += InvoiceForm_Load;
+
+            // --- ĐĂNG KÝ SỰ KIỆN THỜI GIAN THỰC ---
+            // 1. Nhập chữ đến đâu lọc đến đó
+            txtTimKiem.TextChanged += (s, e) => LoadInvoices();
+
+            // 2. Ấn tick lọc theo ngày là load lại luôn
+            chkLocNgay.CheckedChanged += (s, e) => {
+                // Mở/Khóa dtpNgay tùy theo trạng thái tick
+                dtpNgay.Enabled = chkLocNgay.Checked;
+                LoadInvoices();
+            };
+
+            // 3. Thay đổi ngày trên DateTimePicker cũng load lại luôn
+            dtpNgay.ValueChanged += (s, e) => {
+                if (chkLocNgay.Checked) LoadInvoices();
+            };
         }
 
-        private void lblMaHD_Click(object sender, EventArgs e)
+        private void InvoiceForm_Load(object sender, EventArgs e)
         {
-
+            LoadComboSearch();
+            dtpNgay.Enabled = false; // Mặc định chưa tick thì khóa chọn ngày
+            LoadInvoices();
         }
+
+        private void LoadComboSearch()
+        {
+            cboLoc.Items.Clear();
+            cboLoc.Items.Add("Mã hóa đơn");
+            cboLoc.Items.Add("Tên khách hàng");
+            cboLoc.SelectedIndex = 0;
+        }
+
         private void LoadInvoices()
         {
             try
             {
-                using (SqlConnection conn = new SqlConnection(GetConnectionString()))
+                using (HotelManagementEntities db = new HotelManagementEntities())
                 {
-                    conn.Open();
-
-                    string searchKey = txtTimKiem.Text.Trim();
+                    db.Configuration.ProxyCreationEnabled = false;
+                    string searchKey = txtTimKiem.Text.Trim().ToLower();
                     string selectedFilter = cboLoc.SelectedItem?.ToString();
 
+                    var query = db.Invoices
+                                  .Include(inv => inv.Booking)
+                                  .Include(inv => inv.Booking.Customer)
+                                  .Include("Booking.BookingDetails.Room")
+                                  .AsQueryable();
 
-                    string sql = @"SELECT inv.MaHD, inv.NgayLap, 
-                                  cus.TenKH, emp.HoTen AS TenNV, 
-                                  rm.RoomName, inv.TongTien
-                           FROM Invoice inv
-                           JOIN Customer cus ON inv.MaKH = cus.MaKH
-                           JOIN Employees emp ON inv.MaNV = emp.MaNV
-                           JOIN Room rm ON inv.MaPhong = rm.RoomID
-                           WHERE 1=1";
+                    if (chkLocNgay.Checked)
+                    {
+                        DateTime targetDate = dtpNgay.Value.Date;
+                        query = query.Where(inv => DbFunctions.TruncateTime(inv.PaymentDate) == targetDate);
+                    }
 
                     if (!string.IsNullOrEmpty(searchKey))
                     {
                         if (selectedFilter == "Mã hóa đơn")
-                            sql += " AND inv.MaHD LIKE @searchKey";
+                            query = query.Where(inv => inv.InvoiceID.ToString().Contains(searchKey));
                         else if (selectedFilter == "Tên khách hàng")
-                            sql += " AND cus.TenKH LIKE @searchKey";
-                        else if (selectedFilter == "Tên nhân viên")
-                            sql += " AND emp.HoTen LIKE @searchKey";
+                            query = query.Where(inv => inv.Booking.Customer.TenKH.ToLower().Contains(searchKey));
                     }
 
-                    sql += " ORDER BY inv.NgayLap DESC";
-
-                    SqlCommand cmd = new SqlCommand(sql, conn);
-
-                    if (!string.IsNullOrEmpty(searchKey))
+                   // Trong hàm LoadInvoices của InvoiceForm
+var dsHoaDon = query.OrderByDescending(inv => inv.InvoiceID) // Sắp xếp mã hóa đơn mới nhất lên đầu
+                    .ToList()
+                    .Select(inv => new
                     {
-                        cmd.Parameters.AddWithValue("@searchKey", "%" + searchKey + "%");
-                    }
+                        inv.InvoiceID,
+                        NgayLap = inv.PaymentDate,
+                        // Truy vấn lấy tên khách từ bảng liên kết
+                        TenKH = inv.Booking?.Customer?.TenKH ?? "N/A",
+                        RoomName = inv.Booking?.BookingDetails?.FirstOrDefault()?.Room?.RoomName ?? "N/A",
+                        inv.TotalAmount,
+                        // Hiển thị trạng thái thanh toán
+                        TrangThai = inv.Booking?.PaymentStatus ?? "Đã thanh toán",
+                        ChiTiet = "📋 Xem chi tiết"
+                    }).ToList();
 
-                    SqlDataAdapter da = new SqlDataAdapter(cmd);
-                    DataTable dt = new DataTable();
-                    da.Fill(dt);
-
-                    // Thêm cột nút "Chi tiết"
-                    if (!dt.Columns.Contains("ChiTiet"))
-                    {
-                        dt.Columns.Add("ChiTiet", typeof(string));
-                    }
-                    foreach (DataRow row in dt.Rows)
-                    {
-                        row["ChiTiet"] = "📋 Xem chi tiết";
-                    }
-
-                    dgvHoaDon.DataSource = dt;
-
-                    // Định dạng cột
-                    if (dgvHoaDon.Columns["MaHD"] != null)
-                        dgvHoaDon.Columns["MaHD"].HeaderText = "Mã HD";
-                    if (dgvHoaDon.Columns["NgayLap"] != null)
-                        dgvHoaDon.Columns["NgayLap"].HeaderText = "Ngày lập";
-                    if (dgvHoaDon.Columns["TenKH"] != null)
-                        dgvHoaDon.Columns["TenKH"].HeaderText = "Khách hàng";
-                    if (dgvHoaDon.Columns["TenNV"] != null)
-                        dgvHoaDon.Columns["TenNV"].HeaderText = "Nhân viên";
-                    if (dgvHoaDon.Columns["RoomName"] != null)
-                        dgvHoaDon.Columns["RoomName"].HeaderText = "Phòng";
-                    if (dgvHoaDon.Columns["TongTien"] != null)
-                    {
-                        dgvHoaDon.Columns["TongTien"].DefaultCellStyle.Format = "N0";
-                        dgvHoaDon.Columns["TongTien"].HeaderText = "Tổng tiền (VNĐ)";
-                    }
-                    if (dgvHoaDon.Columns["ChiTiet"] != null)
-                    {
-                        dgvHoaDon.Columns["ChiTiet"].HeaderText = "Chi tiết";
-                    }
+dgvHoaDon.DataSource = dsHoaDon;
+                    FormatGrid();
                 }
             }
-            catch (Exception ex)
+            catch (Exception ex) { Console.WriteLine("Lỗi: " + ex.Message); }
+        }
+
+        private void FormatGrid()
+        {
+            if (dgvHoaDon.Columns["InvoiceID"] != null) dgvHoaDon.Columns["InvoiceID"].HeaderText = "Mã HD";
+            if (dgvHoaDon.Columns["TotalAmount"] != null)
             {
-                MessageBox.Show("Lỗi tải dữ liệu: " + ex.Message, "Lỗi",
-                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+                dgvHoaDon.Columns["TotalAmount"].HeaderText = "Tổng tiền";
+                dgvHoaDon.Columns["TotalAmount"].DefaultCellStyle.Format = "N0";
             }
-        }
-
-        // ========== 2. LOAD COMBOBOX TÌM KIẾM ==========
-        private void LoadComboSearch()
-        {
-            cboLoc.Items.Add("Mã hóa đơn");
-            cboLoc.Items.Add("Tên khách hàng");
-            cboLoc.Items.Add("Tên nhân viên");
-            cboLoc.SelectedIndex = 0;
-        }
-
-        private void groupBox1_Enter(object sender, EventArgs e)
-        {
-
+            dgvHoaDon.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
 
         private void dgvHoaDon_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0 && dgvHoaDon.Columns[e.ColumnIndex].Name == "ChiTiet")
             {
-                string invoiceId = dgvHoaDon.Rows[e.RowIndex].Cells["MaHD"].Value.ToString();
-                InvoiceDetailForm detailForm = new InvoiceDetailForm(invoiceId, GetConnectionString());
-                detailForm.ShowDialog();
+                int currentInvoiceId = Convert.ToInt32(dgvHoaDon.Rows[e.RowIndex].Cells["InvoiceID"].Value);
+                using (HotelManagementEntities db = new HotelManagementEntities())
+                {
+                    var hoaDon = db.Invoices.FirstOrDefault(inv => inv.InvoiceID == currentInvoiceId);
+                    if (hoaDon?.BookingID != null)
+                    {
+                        // Mở form chi tiết và truyền BookingID
+                        InvoiceDetailForm detailForm = new InvoiceDetailForm(hoaDon.BookingID.Value);
+                        detailForm.ShowDialog();
+                    }
+                }
             }
-        }
-
-        private void btnTim_Click(object sender, EventArgs e)
-        {
-            LoadInvoices();
         }
 
         private void btnLamMoi_Click(object sender, EventArgs e)
         {
-            txtTimKiem.Text = "";
+            txtTimKiem.Clear();
+            chkLocNgay.Checked = false;
             cboLoc.SelectedIndex = 0;
             LoadInvoices();
-        }
-
-        private void txtTimKiem_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-            {
-                btnTim_Click(sender, e);
-                e.SuppressKeyPress = true;
-            }
         }
     }
 }
