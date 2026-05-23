@@ -134,14 +134,12 @@ namespace HotelManagement.GUI
             {
                 if (trangThai == "Chờ duyệt" || trangThai == "Pending")
                 {
-                    // Hợp lệ: Tô xanh lá
                     e.CellStyle.BackColor = Color.MediumSeaGreen;
                     e.CellStyle.ForeColor = Color.White;
                     e.CellStyle.SelectionBackColor = Color.SeaGreen;
                 }
                 else
                 {
-                    // Không hợp lệ: Tô xám mờ
                     e.CellStyle.BackColor = Color.LightGray;
                     e.CellStyle.ForeColor = Color.DimGray;
                     e.CellStyle.SelectionBackColor = Color.LightGray;
